@@ -1,0 +1,815 @@
+@charset "UTF-8";
+/* =========================================================
+   ハル幼稚園  style-pc.css（960px〜）
+   内容幅1080px・12カラム（68px＋ガター24px）
+   ========================================================= */
+
+:root {
+    --header-h: 88px;
+}
+
+.inner {
+    width: calc(100% - 80px);
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.sec {
+    padding: 120px 0;
+}
+
+.hill {
+    top: -79px;
+    height: 80px;
+}
+
+.hill img {
+    height: 80px;
+}
+
+.hd {
+    margin-bottom: 56px;
+}
+
+.hd__en {
+    font-size: 16px;
+}
+
+.hd__en img {
+    width: 28px;
+}
+
+.hd__title {
+    font-size: 34px;
+}
+
+.hd__lead {
+    margin-top: 16px;
+}
+
+.btn {
+    height: 56px;
+    padding: 0 36px;
+    font-size: 16px;
+}
+
+/* =========================================================
+   ヘッダー
+   ========================================================= */
+.topbar {
+    display: block;
+    background: var(--green);
+    color: #fff;
+    font-size: 13px;
+}
+
+.topbar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+}
+
+.topbar__tel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.topbar__tel img {
+    width: 16px;
+    filter: brightness(10);
+}
+
+.topbar__tel b {
+    margin-left: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 15px;
+    letter-spacing: .04em;
+}
+
+.topbar__links {
+    display: flex;
+    gap: 24px;
+}
+
+.topbar__links a:hover {
+    text-decoration: underline;
+}
+
+.header__logo img {
+    height: 62px;
+}
+
+.header__toggle {
+    display: none;
+}
+
+.gnav {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-left: auto;
+    padding: 0;
+    background: none;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+}
+
+.gnav__list {
+    display: flex;
+    gap: 24px;
+}
+
+.gnav__list li {
+    border: 0;
+}
+
+.gnav__list a {
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+    transition: color .2s;
+}
+
+.gnav__list a:hover {
+    color: var(--green-d);
+}
+
+.gnav__list span {
+    font-size: 10px;
+}
+
+.gnav__sub {
+    display: none;
+}
+
+.gnav__cta {
+    width: auto;
+    height: 48px;
+    margin: 0;
+    padding: 0 24px;
+    font-size: 15px;
+}
+
+/* =========================================================
+   メインビジュアル
+   ========================================================= */
+.mv {
+    height: 640px;
+    padding: 0;
+    background: url(../images/mv-illust.svg) center bottom / cover no-repeat;
+}
+
+.mv__inner {
+    display: block;
+    height: 100%;
+}
+
+.mv__copy {
+    position: absolute;
+    left: 0;
+    top: 100px;
+    margin: 0;
+    z-index: 2;
+}
+
+.mv__copy::before {
+    display: none;
+}
+
+.mv__en {
+    font-size: 18px;
+}
+
+.mv__title {
+    font-size: 60px;
+    line-height: 1.35;
+    letter-spacing: .08em;
+    margin-top: 8px;
+}
+
+.mv__title .pc-br {
+    display: inline;
+}
+
+.mv__lead {
+    font-size: 17px;
+    line-height: 1.9;
+    margin-top: 20px;
+}
+
+.mv__btns {
+    margin-top: 32px;
+}
+
+.mv__slider {
+    position: absolute;
+    right: -20px;
+    top: 70px;
+    width: 460px;
+    height: 400px;
+    margin: 0;
+    border: 10px solid #fff;
+    border-radius: 62% 38% 46% 54% / 55% 48% 52% 45%;
+    box-shadow: var(--shadow);
+    z-index: 2;
+}
+
+.mv__slide:first-child {
+    object-position: 70% 40%;
+}
+
+.mv__dots {
+    right: 190px;
+    top: 500px;
+    gap: 10px;
+}
+
+.mv__dots button {
+    width: 12px;
+    height: 12px;
+}
+
+/* =========================================================
+   TOPICS
+   ========================================================= */
+.topics {
+    padding-top: 72px;
+}
+
+.topics__inner {
+    display: grid;
+    grid-template-columns: 276px 1fr;
+    gap: 24px;
+}
+
+.topics__hd {
+    margin: 0;
+    text-align: left;
+}
+
+.topics__more {
+    display: inline-flex;
+    margin-top: 24px;
+}
+
+.topics__sp-more {
+    display: none;
+}
+
+.topics__list a {
+    padding: 22px 8px;
+    transition: background .2s;
+}
+
+.topics__list a:hover {
+    background: rgba(255, 255, 255, .7);
+}
+
+.topics__list time {
+    width: 96px;
+    font-size: 16px;
+}
+
+.chip {
+    width: 80px;
+    font-size: 13px;
+    line-height: 28px;
+}
+
+/* =========================================================
+   新園舎（写真6カラム＋文章6カラム）
+   ========================================================= */
+.new-school__main {
+    display: grid;
+    grid-template-columns: 528px 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.new-school__photo img {
+    border-width: 10px;
+}
+
+.new-school__badge {
+    width: 96px;
+    height: 96px;
+    font-size: 22px;
+}
+
+.new-school__text {
+    margin: 0;
+}
+
+.new-school__title {
+    font-size: 28px;
+}
+
+.new-school__points img {
+    height: 130px;
+}
+
+/* =========================================================
+   園について
+   ========================================================= */
+.about__main {
+    display: grid;
+    grid-template-columns: 1fr 528px;
+    gap: 60px;
+    align-items: center;
+}
+
+.about__photo {
+    order: 2;
+    height: 420px;
+}
+
+.about__text {
+    margin: 0;
+}
+
+.about__title {
+    font-size: 28px;
+}
+
+.policy {
+    gap: 24px;
+    margin-top: 80px;
+}
+
+.policy li {
+    padding: 36px 32px;
+}
+
+.policy img {
+    width: 96px;
+}
+
+.policy h4 {
+    font-size: 22px;
+    margin-top: 16px;
+}
+
+.policy p {
+    font-size: 15px;
+}
+
+.count {
+    margin-top: 56px;
+    padding: 36px 0;
+}
+
+.count li {
+    flex-direction: row;
+    justify-content: center;
+    gap: 14px;
+    text-align: left;
+}
+
+.count img {
+    width: 64px;
+}
+
+.count dt {
+    font-size: 14px;
+}
+
+.count dd {
+    font-size: 40px;
+}
+
+.count dd small {
+    font-size: 15px;
+}
+
+/* =========================================================
+   SIあそび（写真6カラム＋文章6カラム）
+   ========================================================= */
+.si__main {
+    display: grid;
+    grid-template-columns: 528px 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.si__photos {
+    height: 440px;
+}
+
+.si__photos img {
+    border-width: 10px;
+}
+
+.si__photo1 {
+    height: 330px;
+}
+
+.si__photo2 {
+    width: 46%;
+    height: 210px;
+}
+
+.si__text {
+    margin: 0;
+}
+
+.si__catch {
+    font-size: 30px;
+}
+
+.si__flow b {
+    font-size: 18px;
+}
+
+.si__flow span {
+    font-size: 13px;
+}
+
+.si__note {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-top: 56px;
+    padding: 28px 36px;
+    font-size: 14px;
+}
+
+.si__note h3 {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* =========================================================
+   特別講師
+   ========================================================= */
+.lesson__list {
+    gap: 24px;
+}
+
+.lesson__list li {
+    padding: 32px 16px 28px;
+    border-radius: 24px;
+}
+
+.lesson__list img {
+    width: 88px;
+}
+
+.lesson__list h3 {
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.lesson__tag {
+    right: 12px;
+    top: 12px;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.lesson__more p {
+    font-size: 13px;
+}
+
+/* =========================================================
+   幼稚園での生活
+   ========================================================= */
+.life__sub {
+    margin: 72px 0 32px;
+    font-size: 24px;
+}
+
+.life__sub .en {
+    font-size: 13px;
+    line-height: 26px;
+}
+
+/* 1日の流れ（PCは横） */
+.timeline {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.timeline::before {
+    left: 7%;
+    right: 7%;
+    top: 74px;
+    bottom: auto;
+    border-left: 0;
+    border-top: 4px dotted var(--green);
+}
+
+.timeline li {
+    display: block;
+    padding: 0;
+    text-align: center;
+}
+
+.timeline time {
+    font-size: 20px;
+}
+
+.timeline img {
+    width: 88px;
+    margin: 8px auto 0;
+}
+
+.timeline h4 {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.timeline p {
+    margin-top: 4px;
+    padding: 0 6px;
+}
+
+.season {
+    gap: 24px;
+}
+
+.season li {
+    border-top-width: 10px;
+    border-radius: 24px;
+}
+
+.season__top {
+    gap: 10px;
+    padding: 20px 22px 14px;
+}
+
+.season__top img {
+    width: 48px;
+}
+
+.season__top h4 {
+    font-size: 22px;
+}
+
+.season__top span {
+    font-size: 12px;
+}
+
+.season__photo {
+    width: calc(100% - 32px);
+    height: 150px;
+    margin: 0 16px;
+    border-radius: 16px;
+}
+
+.season dl {
+    padding: 16px 22px 24px;
+    font-size: 15px;
+}
+
+.season dl div {
+    gap: 12px;
+    padding: 6px 0;
+}
+
+.season dt {
+    width: 36px;
+}
+
+.bus {
+    margin-top: 72px;
+    padding: 32px 48px;
+}
+
+.bus h3 {
+    font-size: 22px;
+}
+
+.bus p {
+    font-size: 15px;
+}
+
+.bus b {
+    font-size: 18px;
+}
+
+/* =========================================================
+   先生紹介（3人表示）
+   ========================================================= */
+.staff__carousel {
+    grid-template-columns: 56px 1fr 56px;
+    gap: 16px;
+}
+
+.staff__list li {
+    flex: 0 0 calc((100% - 48px) / 3);
+}
+
+.staff__list img {
+    width: 200px;
+    height: 200px;
+    border-width: 8px;
+}
+
+.staff__role {
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.staff__list h3 {
+    font-size: 22px;
+}
+
+.staff__msg {
+    margin-top: 18px;
+    padding: 18px 22px;
+    font-size: 15px;
+}
+
+.staff__arrow {
+    width: 56px;
+    height: 56px;
+}
+
+.staff__dots {
+    margin-top: 32px;
+}
+
+/* =========================================================
+   今日の幼稚園
+   ========================================================= */
+.gallery {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    gap: 16px;
+}
+
+.gallery li {
+    border-radius: 20px;
+}
+
+.gallery span {
+    left: 12px;
+    bottom: 12px;
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.today__btns {
+    margin-top: 48px;
+    gap: 24px;
+}
+
+/* =========================================================
+   サービス
+   ========================================================= */
+.service__list {
+    gap: 24px;
+}
+
+.service__list a {
+    grid-template-columns: 80px 1fr 20px;
+    gap: 20px;
+    padding: 28px 28px;
+    border-radius: 24px;
+}
+
+.service__list h3 {
+    font-size: 18px;
+}
+
+.service__list p {
+    font-size: 14px;
+}
+
+/* =========================================================
+   お問合せ
+   ========================================================= */
+.contact__box {
+    width: 864px;
+    margin: 0 auto;
+    gap: 24px;
+}
+
+.contact__item {
+    padding: 36px;
+}
+
+.contact__item h3 {
+    font-size: 16px;
+}
+
+.contact__tel {
+    font-size: 40px;
+}
+
+.contact__tel img {
+    width: 32px;
+}
+
+.contact__btn {
+    height: 72px;
+    font-size: 18px;
+}
+
+.contact__note {
+    font-size: 13px;
+}
+
+/* =========================================================
+   アクセス（地図7カラム＋情報5カラム）
+   ========================================================= */
+.access {
+    padding-bottom: 160px;
+}
+
+.access__wrap {
+    display: grid;
+    grid-template-columns: 636px 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+
+
+.access__info {
+    margin: 0;
+}
+
+.access__info div {
+    grid-template-columns: 96px 1fr;
+    padding: 16px 0;
+    font-size: 15px;
+}
+
+.access__btn {
+    margin-top: 28px;
+}
+
+/* =========================================================
+   フッター
+   ========================================================= */
+.pagetop {
+    right: 40px;
+    top: -110px;
+    width: 72px;
+}
+
+.footer__inner {
+    padding: 40px 0 48px;
+}
+
+.footer__logo img {
+    height: 62px;
+}
+
+.footer address {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.footer__nav {
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    justify-self: end;
+}
+
+.footer__nav ul {
+    grid-template-columns: repeat(2, auto);
+    gap: 12px 40px;
+    font-size: 14px;
+}
+
+.footer__nav ul + ul {
+    grid-template-columns: auto;
+    padding: 0 0 0 40px;
+    border-top: 0;
+    border-left: 1px dashed rgba(255, 255, 255, .5);
+}
+
+.footer__nav a:hover {
+    text-decoration: underline;
+}
+
+.footer__copy {
+    padding-bottom: 14px;
+}
+
+.sp-fixed {
+    display: none;
+}
+
+.topics__hd .hd__title {
+    font-size: 28px;
+}
+
+.mv__title .sp-br {
+    display: none;
+}
+
+.gallery li:last-child {
+    grid-column: auto;
+}
