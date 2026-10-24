@@ -1,19 +1,73 @@
 # HAL KINDERGARTEN（架空の幼稚園サイト）
 
-架空の幼稚園「ハル幼稚園」のウェブサイトを題材にした、ポートフォリオ作品です。
-実在する学校法人・園とは関係ありません。
+HAL東京の学生が、ポートフォリオ制作の一環として作成した**架空の幼稚園サイト**です。
+「ハル幼稚園」は架空の幼稚園であり、実在する幼稚園・学校法人・団体とは関係ありません。
 
-## 公開URL
+- 公開URL: [https://mivork.github.io/hal-kindergarten-portfolio/](https://mivork.github.io/hal-kindergarten-portfolio/)
+- 利用規約: [terms.html](terms.html)
 
-https://mivork.github.io/hal-kindergarten-portfolio/
+## デザイン
+
+![デザイン案（design.jpg）](design.jpg)
+
+## タグ
+
+`ポートフォリオ` `架空` `幼稚園` `HTML` `CSS` `レスポンシブ` `GitHub Pages`
+
+## 使用技術
+
+- HTML / CSS（スマホ・タブレット・PCに対応）
+- JavaScript（画面の動き）
+- GitHub Pages（公開）
 
 ## 構成
 
-- `index.html` … トップページ
-- `css/` … レスポンシブ対応のスタイル（スマホ・タブレット・PC）
-- `js/script.js` … 画面の動き
-- `images/` … 画像・アイコン・装飾
+| ファイル・フォルダ | 内容 |
+| --- | --- |
+| `index.html` | トップページ |
+| `terms.html` | 利用規約 |
+| `css/` | スタイル（SP・タブレット・PC） |
+| `js/script.js` | 画面の動き |
+| `images/` | 画像・アイコン・装飾 |
+| `robots.txt` / `sitemap.xml` | 検索エンジン向けの設定 |
+| `design.jpg` | デザイン案 |
+
+## 利用規約（要約）
+
+詳しくは [terms.html](terms.html) をご覧ください。
+
+- サイトの園名・住所・電話番号・写真・催事などの情報はすべて架空です。
+- 文章、画像、デザイン、コードの著作権は制作者に帰属します。
+- **ロゴ、写真、イラスト、アイコンなどの素材を、本サイトの外で使用することは禁止します。**
+- 複製・転載・改変・再配布・商用利用は禁止します（個人的な閲覧・学習目的を除く）。
+- 実在の園・法人・団体になりすます目的での利用は禁止します。
+
+## Gitの説明
+
+このリポジトリはGitで管理されています。Gitは、ファイルの変更履歴を記録するための仕組みです。GitHubは、そのデータをインターネット上で保管・共有するサービスです。
+
+- **コミット**: 変更内容をひとまとまりで記録したものです。どの変更を、いつ、誰が行ったかが残ります。
+- **プッシュ**: 手元の変更をGitHubへ送る操作です。プッシュされた内容が、GitHub Pagesで公開されます。
+- **GitHub Pages**: `main` ブランチのファイルを、そのまま公開Webサイトとして表示する機能です。
+
+### 手元で複製（クローン）する
+
+```bash
+git clone https://github.com/mivork/hal-kindergarten-portfolio.git
+```
+
+### 変更を反映する
+
+```bash
+git add .
+git commit -m "変更内容の説明"
+git push
+```
 
 ## ローカルで表示する
 
 `index.html` をブラウザで開くだけで表示できます。
+
+## 注意事項
+
+本サイトは学習・ポートフォリオ用の作品です。利用規約に同意のうえ、閲覧・参照してください。
