@@ -3,7 +3,8 @@
 /* ==========================================================
    効果音（Web Audio API で音を作るので、音のファイルはいらない）
    ・最初は OFF。左下の「おと」ボタンで ON にしたときだけ鳴らす
-   ・音はひよこ：ボタンを押したときだけ「ぴよ」。カーソルを合わせただけでは鳴らない
+   ・音はオルゴール風の「ポロン」（デザインの、やさしい黄緑・オレンジの雰囲気に合わせた音）
+   ・ボタンを押したときだけ鳴る。カーソルを合わせただけでは鳴らない
 ========================================================== */
 const sound = {
   enabled: false,
@@ -44,19 +45,45 @@ const sound = {
     osc.stop(start + time + 0.02);
   },
 
-  // ボタンを押したとき：「ぴよ」（2音・毎回ほんの少しだけ高さを変えて、同じ音の繰り返しに聞こえないようにする）
-  pop() {
-    const wobble = () => 1 + (Math.random() - 0.5) * 0.08; // ±4%
-    const a = wobble();
-    const b = wobble();
-    this.chirp({ base: 2300 * a, peak: 3300 * a, time: 0.09, volume: 0.13, delay: 0 });
-    this.chirp({ base: 2900 * b, peak: 4000 * b, time: 0.12, volume: 0.1, delay: 0.09 });
+  // やさしいオルゴール風の「ポロン」（1音）：基音＋倍音を入れて、ぽろっと減衰する
+  pluck({ freq = 659, volume = 0.12, delay = 0, length = 0.9 } = {}) {
+    if (!this.enabled) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    const start = ctx.currentTime + delay;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, start);
+    master.gain.exponentialRampToValueAtTime(volume, start + 0.01);
+    master.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    master.connect(ctx.destination);
+
+    // 基音（やさしい音）と2倍音（少しきらっとした音）
+    [[1, 1], [2, 0.25]].forEach(([ratio, level]) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq * ratio, start);
+      g.gain.setValueAtTime(level, start);
+      osc.connect(g).connect(master);
+      osc.start(start);
+      osc.stop(start + length + 0.05);
+    });
   },
 
-  // ON にしたとき：「ぴよぴよぴよ♪」（だんだん高く）
+  // 音階：ドレミソラ（ペンタトニック）。やさしい響きで、どの組み合わせでも外れにくい
+  notes: [523.25, 587.33, 659.25, 783.99, 880.0], // C5 D5 E5 G5 A5
+
+  // ボタンを押したとき：オルゴールの「ポロン」。音階の中からランダムに選ぶので、同じ音の繰り返しになりにくい
+  pop() {
+    const freq = this.notes[Math.floor(Math.random() * this.notes.length)];
+    this.pluck({ freq, volume: 0.12 });
+  },
+
+  // ON にしたとき：オルゴールの分散和音（ドミソド・上がっていく）
   chime() {
-    [2200, 2500, 2850].forEach((hz, i) => {
-      this.chirp({ base: hz, peak: hz * 1.45, time: 0.11, volume: 0.11, delay: i * 0.15 });
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+      this.pluck({ freq, volume: 0.11, delay: i * 0.13, length: 1.1 });
     });
   },
 };
