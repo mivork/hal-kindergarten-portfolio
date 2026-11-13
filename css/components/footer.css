@@ -332,13 +332,21 @@
   }
 }
 
-/* SP：アイコンだけの丸ボタン */
+/* SP：アイコンだけの丸ボタン。効果音ボタンと同じく、少しスクロールしてから出す */
 @media (width < 960px) {
   .speech-toggle {
     justify-content: center;
     width: 3.25rem;
     height: 3.25rem;
     padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .speech-toggle.is-show {
+    opacity: 1;
+    visibility: visible;
   }
 
   .speech-toggle .speech-toggle__text {

@@ -146,6 +146,11 @@
     }
   });
 
+  // SPでは少しスクロールしてから出す（効果音ボタンと同じ）
+  window.addEventListener("scroll", () => {
+    toggle.classList.toggle("is-show", window.scrollY > 600);
+  }, { passive: true });
+
   toggle.hidden = false;
   render();
 })();
