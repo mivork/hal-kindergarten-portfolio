@@ -9,7 +9,17 @@
   z-index: 100;
   background-color: rgba(255, 252, 245, 0.82);
   border-block-end: 1px solid var(--color-line);
-  /* WD27_06 リキッドグラス：うしろの写真がすりガラス越しに見える */
+}
+
+/* WD27_06 リキッドグラス：うしろの写真がすりガラス越しに見える。
+   blur は ::before に分けて置く。ヘッダー本体に付けると、中のメニュー(position: fixed)の基準がヘッダーになり、
+   画面いっぱいに開かず上の方だけになってしまうため */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   backdrop-filter: blur(12px) saturate(1.4);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
 }
