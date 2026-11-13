@@ -382,3 +382,24 @@
     letter-spacing: 0.02em;
   }
 }
+
+/* SP メニューの中身が画面の右側からはみ出さないように */
+@media (width < 960px) {
+  .nav {
+    overflow-x: hidden;
+  }
+
+  .nav__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nav__link {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .nav__tel {
+    max-width: 100%;
+    font-size: 1.125rem;
+  }
+}
