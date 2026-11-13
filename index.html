@@ -34,6 +34,7 @@
   <script src="js/carousel.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/sound.js" defer></script>
+  <script src="js/zundamon-voices.js" defer></script>
   <script src="js/speech.js" defer></script>
   <script src="js/cursor.js" defer></script>
 
@@ -638,6 +639,7 @@
         <sub-navigation-template list-class="footer__list footer__list--sub"></sub-navigation-template>
       </nav>
     </div>
+    <p class="footer__credit"><small>読み上げ音声：VOICEVOX:ずんだもん</small></p>
     <p class="footer__copyright" id="copyright" v-cloak><small>&copy; {{ year }} ハル幼稚園</small></p>
   </footer>
 
@@ -651,7 +653,7 @@
   <!-- PC：画面右に固定するタブ -->
   <a href="#contact" class="side-tab"><span class="material-symbols-rounded" aria-hidden="true">event_available</span><span class="side-tab__text">見学・資料請求</span></a>
 
-  <!-- 読み上げの ON/OFF（最初は OFF。対応していないブラウザでは js/speech.js が hidden のままにする） -->
+  <!-- 読み上げの ON/OFF（最初は OFF。声はすべて VOICEVOX:ずんだもん の音声ファイル） -->
   <button type="button" class="speech-toggle" aria-pressed="false" aria-label="読み上げの切り替え" hidden><span class="material-symbols-rounded" aria-hidden="true">voice_over_off</span><span class="speech-toggle__text">読み上げ OFF</span></button>
 
   <!-- 効果音の ON/OFF（最初は OFF） -->

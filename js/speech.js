@@ -7,15 +7,16 @@
      - リンク・ボタン：カーソルを合わせて少し止めたとき／キーボードで移ったとき／押したとき
      - 文章・見出し・項目（段落・見出し・リスト など）：カーソルを合わせて少し止めたとき
    ・アイコンの名前（arrow_forward など）は読まない
-   ・声の調子は VOICE の数字で変えられる
+   ・声はすべて「VOICEVOX:ずんだもん（ノーマル）」の音声ファイル
+     （audio/zundamon/ に用意した mp3 を、js/zundamon-voices.js の
+      対応表で引いて再生する。ブラウザの読み上げ音声は使わない）
+   ・対応表にない文章は読まない（ずんだもん以外の声で読まないため）
    ・画面が見えにくい方・キーボードで操作する方向け
-   ・ブラウザが読み上げに対応していなければボタンを出さない
 ========================================================== */
 (() => {
-  if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
-
   const toggle = document.querySelector(".speech-toggle");
   if (!toggle) return;
+  const voices = window.ZUNDAMON_VOICES || {};
   const icon = toggle.querySelector(".material-symbols-rounded");
   const text = toggle.querySelector(".speech-toggle__text");
 
@@ -32,33 +33,22 @@
     text.textContent = enabled ? "読み上げ ON" : "読み上げ OFF";
   };
 
-  // ナレーションの声の調整（数字を変えると声の雰囲気が変わる）
-  const VOICE = {
-    lang: "ja-JP",
-    rate: 0.95,  // 速さ（1が標準・小さいほどゆっくり）
-    pitch: 1.2,  // 高さ（1が標準・大きいほど高い声）
-    volume: 1,   // 音量（0〜1）
+  // ずんだもんの音声ファイルを1つずつ再生する（前の音声は止めてから）
+  let player = null;
+  const stop = () => {
+    if (!player) return;
+    player.pause();
+    player.currentTime = 0;
   };
-
-  // 日本語の声があれば、その中から使う（端末によって無いこともある）
-  let japaneseVoice = null;
-  const pickVoice = () => {
-    const voices = window.speechSynthesis.getVoices();
-    japaneseVoice = voices.find((v) => v.lang === VOICE.lang) || voices.find((v) => v.lang.startsWith("ja")) || null;
-  };
-  pickVoice();
-  window.speechSynthesis.addEventListener?.("voiceschanged", pickVoice);
-
   const speak = (message) => {
-    if (!message.trim()) return;
-    window.speechSynthesis.cancel(); // 前の読み上げを止めてから読む
-    const utterance = new SpeechSynthesisUtterance(message);
-    utterance.lang = VOICE.lang;
-    utterance.rate = VOICE.rate;
-    utterance.pitch = VOICE.pitch;
-    utterance.volume = VOICE.volume;
-    if (japaneseVoice) utterance.voice = japaneseVoice;
-    window.speechSynthesis.speak(utterance);
+    const src = voices[message];
+    if (!src) return; // 対応表にない文章は読まない
+    stop();
+    if (!player) player = new Audio();
+    player.src = src;
+    player.play().catch(() => {
+      /* 自動再生の制限などで再生できないときは何もしない */
+    });
   };
 
   // 読む対象：リンク・ボタン
@@ -121,9 +111,11 @@
   });
 
   // 押したとき（同じものを続けて押しても読む）
+  // リンク・ボタンは名前を、文章（見出し・段落・項目）はその文章を読む。スマホはこのタップで読む
   document.addEventListener("click", (event) => {
     if (!enabled) return;
-    const el = event.target instanceof Element ? event.target.closest(INTERACTIVE) : null;
+    const target = event.target instanceof Element ? event.target : null;
+    const el = target?.closest(`${INTERACTIVE}, ${READABLE}`);
     if (!isReadTarget(el)) return;
     clearTimeout(hoverTimer);
     lastRead = null;
@@ -142,7 +134,7 @@
       speak("読み上げ、オンです。");
     } else {
       clearTimeout(hoverTimer);
-      window.speechSynthesis.cancel();
+      stop();
     }
   });
 

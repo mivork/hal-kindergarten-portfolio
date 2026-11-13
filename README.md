@@ -68,6 +68,13 @@ git push
 
 ※ このリポジトリは制作者本人のみが更新します。クローンや再利用は利用規約により禁止しています。
 
+## 読み上げ音声について
+
+- 読み上げの音声（`audio/zundamon/`）は、VOICEVOX:ずんだもん（ノーマル）で作成したものです。
+- クレジット：VOICEVOX:ずんだもん
+- 音声を売ったり、商用のサイトで使ったりすることは禁止します。
+- 音声を取り出して使う場合は、VOICEVOX とずんだもんの利用規約（[VOICEVOX](https://voicevox.hiroshiba.jp/term/)、[ずんだもん](https://zunko.jp/guideline.html)）に従ってください。
+
 ## ローカルで表示する
 
 `index.html` をブラウザで開くだけで表示できます。
