@@ -6,6 +6,11 @@ HAL東京の学生が、ポートフォリオ制作の一環として作成し�
 - 公開URL: [https://mivork.github.io/hal-kindergarten-portfolio/](https://mivork.github.io/hal-kindergarten-portfolio/)
 - 利用規約: [terms.html](terms.html)
 
+## 公開範囲
+
+- URLを知っている人だけが閲覧する想定で、検索エンジンの結果には表示されないよう `noindex, nofollow` を設定しています。
+- ただし、URLを知っていれば誰でも閲覧でき、リポジトリのソースコードも公開されています。完全な非公開ではありません。
+
 ## デザイン
 
 ![デザイン案（design.jpg）](design.jpg)
@@ -17,7 +22,7 @@ HAL東京の学生が、ポートフォリオ制作の一環として作成し�
 ## 使用技術
 
 - HTML / CSS（スマホ・タブレット・PCに対応）
-- JavaScript（画面の動き）
+- JavaScript（画面の動き）、Vue.js（ナビゲーションなどの部品）
 - GitHub Pages（公開）
 
 ## 構成
@@ -26,10 +31,11 @@ HAL東京の学生が、ポートフォリオ制作の一環として作成し�
 | --- | --- |
 | `index.html` | トップページ |
 | `terms.html` | 利用規約 |
-| `css/` | スタイル（SP・タブレット・PC） |
-| `js/script.js` | 画面の動き |
+| `css/style.css` | スタイルの読み込み元（`reset.css`、`tokens.css`、`base.css`、`components/` を読み込み） |
+| `css/components/` | ヘッダー・メインビジュアル・セクション・フッターなどの部品ごとのスタイル |
+| `js/` | 画面の動き（`script.js`、`carousel.js`、`cursor.js`、`sound.js`、`template.js`、Vue.js本体 `vue.global.prod.js`） |
 | `images/` | 画像・アイコン・装飾 |
-| `robots.txt` | クローラーの設定（検索結果に表示しない `noindex` を読み取れるよう、クロールは許可） |
+| `robots.txt` | クローラーの設定（`noindex` を読み取れるよう、クロールは許可） |
 | `design.jpg` | デザイン案 |
 
 ## 利用規約（要約）
