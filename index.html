@@ -36,6 +36,7 @@
   <script src="js/sound.js" defer></script>
   <script src="js/zundamon-voices.js" defer></script>
   <script src="js/speech.js" defer></script>
+  <script src="js/loader.js" defer></script>
   <script src="js/cursor.js" defer></script>
 
   <!-- 構造化データ -->
@@ -58,6 +59,13 @@
 </head>
 
 <body>
+  <!-- ローディング画面（読み込みが終わると消える） -->
+  <div class="loader" id="loader" role="status">
+    <img src="images/logo.svg" alt="ハル幼稚園" class="loader__logo" width="220" height="60">
+    <div class="loader__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="loader__text">読みこみ中…</p>
+  </div>
+
   <!-- ==================== ヘッダー ==================== -->
   <header class="header">
     <div class="header__util">

@@ -1,0 +1,82 @@
+/* ==========================================================
+   ローディング画面：ロゴがふわっと浮き、3つの点がぴょんぴょん跳ねる
+   ・読み込みが終わると消える（js/loader.js）
+   ・JS が動かなくても、4秒たったら自動で消える（CSS だけの保険）
+   ・動きを減らす設定では、動かさずに表示だけする
+========================================================== */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.5rem;
+  background-color: var(--color-base);
+  animation: loaderOut 0.5s ease 4s forwards;
+}
+
+.loader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader__logo {
+  width: min(60vw, 220px);
+  height: auto;
+  animation: loaderFloat 1.6s ease-in-out infinite;
+}
+
+.loader__dots {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.loader__dots span {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: var(--color-main);
+  animation: loaderBounce 0.9s ease-in-out infinite;
+}
+
+.loader__dots span:nth-child(2) {
+  background-color: var(--color-accent);
+  animation-delay: 0.15s;
+}
+
+.loader__dots span:nth-child(3) {
+  background-color: var(--color-main-light);
+  animation-delay: 0.3s;
+}
+
+.loader__text {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-sm);
+  color: var(--color-main-dark);
+}
+
+@keyframes loaderBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.6rem); }
+}
+
+@keyframes loaderFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.4rem); }
+}
+
+@keyframes loaderOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__logo,
+  .loader__dots span {
+    animation: none;
+  }
+}
