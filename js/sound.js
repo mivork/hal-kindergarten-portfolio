@@ -129,8 +129,8 @@ function initSound() {
 
   // ボタンを押したときだけ「ぴよ」（カーソルを合わせただけでは鳴らさない）
   document.addEventListener("click", (event) => {
-    if (event.target.closest(".sound-toggle")) return;
-    if (event.target.closest(".button, .header__cta, .fixed-cta__link, .side-tab, .header__toggle, .pagetop")) {
+    if (event.target.closest(".sound-toggle, .speech-toggle")) return;
+    if (event.target.closest("a, button, [role='button'], .card")) {
       sound.pop();
     }
   });
