@@ -4,7 +4,6 @@
    読み上げ（音声ガイド）
    ・最初は OFF。右下（左下の効果音ボタンの上）の「読み上げ」で ON/OFF
    ・ON のとき、リンクやボタンにカーソルを合わせる（少し止める）・フォーカス・タップすると、その名前を声で読む
-   ・読む前にひよこの「ぴっ」を鳴らす（効果音が ON のときだけ）
    ・声の調子は VOICE の数字で変えられる
    ・画面が見えにくい方・キーボードで操作する方向け
    ・ブラウザが読み上げに対応していなければボタンを出さない
@@ -34,9 +33,7 @@
   const labelOf = (el) => {
     const label = el.getAttribute("aria-label") || el.textContent || "";
     const clean = label.replace(/\s+/g, " ").trim();
-    if (el.matches('[href^="tel:"]')) return `${clean}、電話をかける リンク`;
-    if (el.tagName === "A") return `${clean}、リンク`;
-    return `${clean}、ボタン`;
+    return clean;
   };
 
   // ナレーションの声の調整（数字を変えると声の雰囲気が変わる）
@@ -59,8 +56,6 @@
   const speak = (message) => {
     if (!message.trim()) return;
     window.speechSynthesis.cancel(); // 前の読み上げを止めてから読む
-    // 読み上げの前に、ひよこの「ぴっ」（効果音が ON のときだけ鳴る）
-    sound.chirp({ base: 2800, peak: 3600, time: 0.06, volume: 0.06 });
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = VOICE.lang;
     utterance.rate = VOICE.rate;
@@ -123,7 +118,7 @@
     }
     render();
     if (enabled) {
-      speak("読み上げを開始します。リンクやボタンに触れると、その内容を読みます。");
+      speak("読み上げ、オンです。");
     } else {
       window.speechSynthesis.cancel();
     }
