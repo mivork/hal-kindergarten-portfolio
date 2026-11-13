@@ -403,3 +403,46 @@
     font-size: 1.125rem;
   }
 }
+
+/* SP メニューのデザイン：下の補助リンクを2列のカードにそろえ、項目が奇数のときは最後を全幅にする */
+@media (width < 960px) {
+  .nav__list > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .nav__sub-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-block-start: var(--space-lg);
+    padding-block-start: var(--space-md);
+    border-block-start: 2px dashed var(--color-main-light);
+  }
+
+  .nav__sub-list a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.625rem;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-main-dark);
+    text-decoration: none;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sticker);
+  }
+
+  .nav__sub-list a:hover {
+    color: var(--color-accent-dark);
+  }
+
+  .nav__tel {
+    margin-block-start: var(--space-lg);
+    padding: 1rem;
+    border-radius: var(--radius-full);
+    box-shadow: 0 0.3125rem 0 var(--color-accent-dark);
+  }
+}
