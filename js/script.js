@@ -9,7 +9,20 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 function initNav() {
   const check = document.getElementById("nav-toggle");
   // メニューが開いている間は、うしろのページをスクロールさせない
-  const sync = () => document.documentElement.classList.toggle("is-menu-open", check.checked);
+  // （iPhone などは overflow だけでは指で動いてしまうので、body を今の位置に固定する）
+  let lockedY = 0;
+  const sync = () => {
+    const root = document.documentElement;
+    if (check.checked) {
+      lockedY = window.scrollY;
+      document.body.style.top = `-${lockedY}px`;
+      root.classList.add("is-menu-open");
+    } else {
+      root.classList.remove("is-menu-open");
+      document.body.style.top = "";
+      window.scrollTo({ top: lockedY, behavior: "instant" });
+    }
+  };
   check.addEventListener("change", sync);
   document.querySelectorAll(".nav a").forEach((link) => {
     link.addEventListener("click", () => {

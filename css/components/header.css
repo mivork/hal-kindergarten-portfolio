@@ -448,8 +448,14 @@
 }
 
 /* SP：メニューが開いている間は、うしろのページをスクロールさせない（js/script.js が付ける） */
-html.is-menu-open,
+html.is-menu-open {
+  overflow: hidden;
+}
+
 html.is-menu-open body {
+  position: fixed;
+  left: 0;
+  right: 0;
   overflow: hidden;
   overscroll-behavior: none;
 }
