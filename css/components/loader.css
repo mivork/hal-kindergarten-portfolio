@@ -1,8 +1,11 @@
 /* ==========================================================
-   ローディング画面：ロゴがふわっと浮き、3つの点がぴょんぴょん跳ねる
+   ローディング画面：サイトと同じ見た目（design.jpg に合わせる）
+   ・背景：サイトのメインビジュアルと同じ光と葉っぱの画像（images/bg-main.webp）
+   ・白い角丸のカードに、ロゴ・「よみこみちゅう」の札・進みのバー・％
+   ・葉っぱが上から下へ、ゆっくり落ちる（動きを減らす設定では止まる）
+   ・％とバーは、js/loader.js が時間に合わせて動かす（ロゴは動かさない）
    ・読み込みが終わると消える（js/loader.js）
-   ・JS が動かなくても、4秒たったら自動で消える（CSS だけの保険）
-   ・動きを減らす設定では、動かさずに表示だけする
+   ・JS が動かなくても、16秒たったら自動で消える（CSS だけの保険）
 ========================================================== */
 .loader {
   position: fixed;
@@ -10,61 +13,112 @@
   z-index: 999;
   display: grid;
   place-content: center;
-  justify-items: center;
-  gap: 1.5rem;
-  background-color: var(--color-base);
-  animation: loaderOut 0.5s ease 4s forwards;
+  padding: var(--space-md);
+  overflow: hidden;
+  background-color: #fffcf2;
+  animation: loaderOut 0.8s ease 16s forwards;
 }
 
 .loader.is-done {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
+/* 枠（カードを包む）：幅をそろえるための箱 */
+.loader__frame {
+  position: relative;
+  z-index: 1; /* 葉っぱの上にカードを重ねる（文字に葉っぱが重ならないように） */
+  width: min(90vw, 460px);
+}
+
+/* カード：design.jpg と同じ、白い角丸のカードに柔らかい影 */
+.loader__card {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  border-radius: var(--radius-lg);
+  background-color: #fffcf2;
+  box-shadow: none;
+  text-align: center;
+  animation: loaderPop 0.6s var(--ease) both;
+}
+
+/* ロゴは動かさない */
 .loader__logo {
-  width: min(60vw, 220px);
+  width: min(78vw, 340px);
   height: auto;
-  animation: loaderFloat 1.6s ease-in-out infinite;
 }
 
-.loader__dots {
-  display: flex;
-  gap: 0.6rem;
+
+/* 進みのバー：左から、％と同じ長さだけ緑で伸びる（グラデーションは使わない） */
+.loader__bar {
+  width: min(82%, 340px);
+  height: 0.8rem;
+  overflow: hidden;
+  border: 2px solid var(--color-main);
+  border-radius: var(--radius-full);
+  background-color: #fffcf2;
 }
 
-.loader__dots span {
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 50%;
-  background-color: var(--color-main);
-  animation: loaderBounce 0.9s ease-in-out infinite;
-}
-
-.loader__dots span:nth-child(2) {
+.loader__bar span {
+  display: block;
+  width: var(--p, 0%);
+  height: 100%;
+  border-radius: var(--radius-full);
   background-color: var(--color-accent);
-  animation-delay: 0.15s;
+  transition: width 0.2s linear;
 }
 
-.loader__dots span:nth-child(3) {
-  background-color: var(--color-main-light);
-  animation-delay: 0.3s;
-}
-
-.loader__text {
+/* ％：大きく、丸いフォントで */
+.loader__percent {
   font-family: var(--font-family-pop);
-  font-size: var(--font-size-sm);
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
+  line-height: 1;
   color: var(--color-main-dark);
+  font-variant-numeric: tabular-nums;
 }
 
-@keyframes loaderBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-0.6rem); }
+.loader__num {
+  display: inline-block;
+  min-width: 2.2em;
+  text-align: right;
 }
 
-@keyframes loaderFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-0.4rem); }
+/* 葉っぱ：上から下へ、ゆっくり回りながら落ちる（位置・大きさ・速さを少しずつ変える） */
+.loader__leaf {
+  position: absolute;
+  top: -10%;
+  left: var(--x, 50%);
+  width: var(--s, 0.9rem);
+  height: calc(var(--s, 0.9rem) * 0.6);
+  border-radius: 0 100% 0 100%;
+  background-color: var(--color-leaf);
+  opacity: 0;
+  animation: loaderLeaf var(--t, 6s) linear var(--d, 0s) infinite;
+}
+
+.loader__leaf:nth-child(1) { --x: 8%;  --s: 0.9rem; --t: 6s;   --d: 0s; }
+.loader__leaf:nth-child(2) { --x: 22%; --s: 1.2rem; --t: 7.5s; --d: -2s; background-color: var(--color-main-light); }
+.loader__leaf:nth-child(3) { --x: 40%; --s: 0.8rem; --t: 5.5s; --d: -4s; }
+.loader__leaf:nth-child(4) { --x: 58%; --s: 1.1rem; --t: 8s;   --d: -1s; background-color: var(--color-main); }
+.loader__leaf:nth-child(5) { --x: 74%; --s: 1rem;   --t: 6.5s; --d: -3s; }
+.loader__leaf:nth-child(6) { --x: 88%; --s: 1.3rem; --t: 9s;   --d: -5s; background-color: var(--color-main-light); }
+.loader__leaf:nth-child(7) { --x: 32%; --s: 0.7rem; --t: 5s;   --d: -2.5s; background-color: var(--color-main); }
+.loader__leaf:nth-child(8) { --x: 66%; --s: 0.9rem; --t: 7s;   --d: -6s; }
+
+@keyframes loaderPop {
+  from { opacity: 0; transform: translateY(1rem) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes loaderLeaf {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translate(-1.5rem, 50vh) rotate(180deg); }
+  90% { opacity: 0.8; }
+  100% { transform: translate(1.5rem, 110vh) rotate(360deg); opacity: 0; }
 }
 
 @keyframes loaderOut {
@@ -75,8 +129,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader__logo,
-  .loader__dots span {
+  .loader__card,
+  .loader__leaf {
     animation: none;
+  }
+
+  .loader__leaf {
+    opacity: 0.6;
   }
 }

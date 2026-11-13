@@ -74,6 +74,21 @@
   }
 }
 
+/* 読み上げ音声のクレジット（コピーライトの帯とつなげて同じ帯に見せる） */
+.footer__credit {
+  margin-block-start: var(--space-xl);
+  padding-block: 1rem 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-white);
+  text-align: center;
+  background-color: var(--color-main-dark);
+}
+
+.footer__credit + .footer__copyright {
+  margin-block-start: 0;
+  padding-block-start: 0.25rem;
+}
+
 /* --- SPの画面下に固定するボタン（アクセント） --- */
 .fixed-cta {
   position: fixed;

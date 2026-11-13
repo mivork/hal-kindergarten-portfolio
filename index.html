@@ -60,10 +60,16 @@
 
 <body>
   <!-- ローディング画面（読み込みが終わると消える） -->
-  <div class="loader" id="loader" role="status">
-    <img src="images/logo.svg" alt="ハル幼稚園" class="loader__logo" width="220" height="60">
-    <div class="loader__dots" aria-hidden="true"><span></span><span></span><span></span></div>
-    <p class="loader__text">読みこみ中…</p>
+  <!-- ローディング：サイトと同じ見た目（背景の光と葉っぱ、白いシールのカード、点線の模様） -->
+  <div class="loader" id="loader" role="status" aria-label="読みこみ中">
+    <span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span><span class="loader__leaf" aria-hidden="true"></span>
+    <div class="loader__frame">
+      <div class="loader__card">
+        <img src="images/logo.svg" alt="ハル幼稚園" class="loader__logo" width="220" height="60">
+        <div class="loader__bar" aria-hidden="true"><span></span></div>
+        <p class="loader__percent" aria-live="off"><span class="loader__num">0</span>%</p>
+      </div>
+    </div>
   </div>
 
   <!-- ==================== ヘッダー ==================== -->
