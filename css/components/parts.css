@@ -307,3 +307,60 @@
   margin-inline: 0.375em;
   color: var(--color-main);
 }
+
+/* --- クリックできることが分かる表示（ホバー・フォーカス） --- */
+.more {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: transparent;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.more:hover {
+  color: var(--color-accent-dark);
+  text-decoration-color: currentColor;
+}
+
+.topics__link {
+  transition: background-color 0.2s ease;
+}
+
+.topics__link:hover {
+  background-color: var(--color-main-pale);
+}
+
+.topics__link:hover .topics__title {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.card {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0 0 3px var(--color-main-light), var(--shadow-sticker);
+}
+
+.card:hover .card__more {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.card__more .material-symbols-rounded {
+  transition: transform 0.3s var(--ease);
+}
+
+.card:hover .card__more .material-symbols-rounded {
+  transform: translateX(0.25rem);
+}
+
+.card:focus-visible,
+.topics__link:focus-visible,
+.more:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
