@@ -3,7 +3,7 @@
 /* ==========================================================
    効果音（Web Audio API で音を作るので、音のファイルはいらない）
    ・最初は OFF。左下の「おと」ボタンで ON にしたときだけ鳴らす
-   ・音はひよこ：ボタンを押すと「ぴよぴよ」、カードにのると「ぴっ」
+   ・音はひよこ：ボタンを押したときだけ「ぴよ」。カーソルを合わせただけでは鳴らない
 ========================================================== */
 const sound = {
   enabled: false,
@@ -44,15 +44,13 @@ const sound = {
     osc.stop(start + time + 0.02);
   },
 
-  // ボタンを押したとき：「ぴよぴよ」
+  // ボタンを押したとき：「ぴよ」（2音・毎回ほんの少しだけ高さを変えて、同じ音の繰り返しに聞こえないようにする）
   pop() {
-    this.chirp({ delay: 0 });
-    this.chirp({ base: 2600, peak: 3800, delay: 0.13 });
-  },
-
-  // カードにのったとき：小さく「ぴっ」
-  piko() {
-    this.chirp({ base: 2800, peak: 3600, time: 0.06, volume: 0.05 });
+    const wobble = () => 1 + (Math.random() - 0.5) * 0.08; // ±4%
+    const a = wobble();
+    const b = wobble();
+    this.chirp({ base: 2300 * a, peak: 3300 * a, time: 0.09, volume: 0.13, delay: 0 });
+    this.chirp({ base: 2900 * b, peak: 4000 * b, time: 0.12, volume: 0.1, delay: 0.09 });
   },
 
   // ON にしたとき：「ぴよぴよぴよ♪」（だんだん高く）
@@ -102,19 +100,12 @@ function initSound() {
     toggle.classList.toggle("is-show", window.scrollY > 600);
   }, { passive: true });
 
-  // ボタン・リンクを押したら「ぴよぴよ」
+  // ボタンを押したときだけ「ぴよ」（カーソルを合わせただけでは鳴らさない）
   document.addEventListener("click", (event) => {
     if (event.target.closest(".sound-toggle")) return;
-    if (event.target.closest(".button, .more, .nav__link, .fixed-cta__link, .side-tab, .header__toggle, .pagetop, .card, .topics__link")) {
+    if (event.target.closest(".button, .header__cta, .fixed-cta__link, .side-tab, .header__toggle, .pagetop")) {
       sound.pop();
     }
-  });
-
-  // カードやアイコンにのったら「ぴっ」（マウスのときだけ）
-  document.querySelectorAll(".lesson, .entry__item, .contact__item, .si__step, .point").forEach((el) => {
-    el.addEventListener("pointerenter", (event) => {
-      if (event.pointerType === "mouse") sound.piko();
-    });
   });
 }
 
