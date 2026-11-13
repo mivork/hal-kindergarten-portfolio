@@ -8,9 +8,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 ========================================================== */
 function initNav() {
   const check = document.getElementById("nav-toggle");
+  // メニューが開いている間は、うしろのページをスクロールさせない
+  const sync = () => document.documentElement.classList.toggle("is-menu-open", check.checked);
+  check.addEventListener("change", sync);
   document.querySelectorAll(".nav a").forEach((link) => {
     link.addEventListener("click", () => {
       check.checked = false;
+      sync();
     });
   });
 }

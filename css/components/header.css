@@ -446,3 +446,10 @@
     box-shadow: 0 0.3125rem 0 var(--color-accent-dark);
   }
 }
+
+/* SP：メニューが開いている間は、うしろのページをスクロールさせない（js/script.js が付ける） */
+html.is-menu-open,
+html.is-menu-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
