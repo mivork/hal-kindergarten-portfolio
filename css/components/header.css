@@ -453,3 +453,24 @@ html.is-menu-open body {
   overflow: hidden;
   overscroll-behavior: none;
 }
+
+/* SP：メニューはスクロールさせない（中身は画面の高さに収まるように余白を詰める） */
+@media (width < 960px) {
+  .nav {
+    overflow: hidden;
+    padding-block-end: 1.5rem;
+  }
+
+  .nav__link {
+    padding-block: 0.625rem;
+  }
+
+  .nav__sub-list {
+    margin-block-start: var(--space-md);
+    padding-block-start: var(--space-sm);
+  }
+
+  .nav__tel {
+    margin-block-start: var(--space-md);
+  }
+}
