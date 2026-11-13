@@ -1,0 +1,309 @@
+/* ==========================================================
+   Parts（見出し・ボタン・タグ・シール写真など、くり返し使う部品）
+========================================================== */
+
+/* --- 見出し：「ハルの〇〇」ラベル＋日本語の見出し --- */
+.heading {
+  margin-block-end: var(--space-xl);
+  text-align: center;
+}
+
+.heading--left {
+  text-align: start;
+}
+
+.heading__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 1rem 0.25rem 0.625rem;
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-main-dark);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-main-light);
+  border-radius: var(--radius-full);
+}
+
+.heading__label .material-symbols-rounded {
+  font-size: 1.25rem;
+  color: var(--color-main);
+}
+
+.heading__en {
+  margin-inline-start: 0.375rem;
+  font-family: var(--font-family-base);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-text-sub);
+  text-transform: uppercase;
+}
+
+.heading__ja {
+  margin-block-start: 0.75rem;
+  font-family: var(--font-family-pop);
+  font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.5rem);
+  font-weight: 400;
+  line-height: var(--line-height-heading);
+}
+
+.heading__lead {
+  margin-block-start: var(--space-sm);
+  font-size: var(--font-size-md);
+}
+
+/* --- ボタン --- */
+.button {
+  --button-color: var(--color-main);
+  --button-shadow: var(--color-main-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.875rem 1.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-white);
+  background-color: var(--button-color);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0.3125rem 0 var(--button-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button .material-symbols-rounded {
+  font-size: 1.25rem;
+}
+
+.button:hover {
+  transform: translateY(0.1875rem);
+  box-shadow: 0 0.125rem 0 var(--button-shadow);
+}
+
+/* アクセント：電話・見学・資料請求だけ */
+.button--accent {
+  --button-color: var(--color-accent);
+  --button-shadow: var(--color-accent-dark);
+}
+
+.button--outline {
+  --button-shadow: var(--color-accent-light);
+  color: var(--color-accent-dark);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-accent);
+}
+
+.button--large {
+  padding: 1rem 2rem;
+  font-size: var(--font-size-lg);
+}
+
+/* --- 「もっと見る」リンク --- */
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.more .material-symbols-rounded {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 1.125rem;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: 50%;
+  transition: transform 0.3s var(--ease);
+}
+
+.more:hover .material-symbols-rounded {
+  transform: translateX(0.25rem);
+}
+
+/* --- タグ --- */
+.tag {
+  display: inline-block;
+  min-width: 4.5em;
+  padding: 0.0625rem 0.625rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--color-white);
+  text-align: center;
+  background-color: var(--color-main);
+  border: 2px solid var(--color-main);
+  border-radius: var(--radius-full);
+}
+
+.tag--outline {
+  color: var(--color-main-dark);
+  background-color: var(--color-white);
+}
+
+.tag--soft {
+  color: var(--color-main-dark);
+  background-color: var(--color-main-light);
+  border-color: var(--color-main-light);
+}
+
+/* --- シールのような写真（白いふち＋影） --- */
+.sticker {
+  overflow: hidden;
+  background-color: var(--color-white);
+  border: 0.375rem solid var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sticker);
+}
+
+.sticker img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--radius-md) - 0.375rem);
+}
+
+/* --- アイコンつきのポイント --- */
+.point {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.point__icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.625rem;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: 50%;
+  outline: 2px dashed rgba(255, 255, 255, 0.85);
+  outline-offset: -0.3125rem;
+}
+
+.point__title {
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+}
+
+.point__text {
+  margin-block-start: 0.25rem;
+  font-size: var(--font-size-sm);
+}
+
+/* --- チップ --- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  padding: 0.25rem 1rem;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-main-dark);
+  background-color: var(--color-main-pale);
+  border: 2px solid var(--color-main-light);
+  border-radius: var(--radius-full);
+}
+
+/* --- カード（写真＋文） --- */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sticker);
+  transition: transform 0.3s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-0.375rem);
+}
+
+.card__photo {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .card__photo img {
+  transform: scale(1.05);
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: var(--space-md);
+}
+
+.card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.card__label .material-symbols-rounded {
+  font-size: 1.25rem;
+  color: var(--color-main);
+}
+
+.card__title {
+  margin-block-start: 0.375rem;
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+}
+
+.card__text {
+  margin-block: 0.5rem var(--space-sm);
+  font-size: var(--font-size-sm);
+}
+
+.card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-block-start: auto;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.card__more .material-symbols-rounded {
+  font-size: 1.125rem;
+}
+
+/* 見出しの上に添える小さな一言（シートの「子どもたちにも大人気☆」） */
+.heading__pre {
+  display: block;
+  margin-block-end: 0.25rem;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.heading__pre::before,
+.heading__pre::after {
+  content: "\2606";
+  margin-inline: 0.375em;
+  color: var(--color-main);
+}

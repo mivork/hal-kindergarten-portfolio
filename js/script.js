@@ -1,225 +1,138 @@
-'use strict';
+"use strict";
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 動きを減らす設定のときはアニメーションを止める
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------------------------------------------
-   1. メインビジュアルのスライダー（5秒ごとにフェード）
---------------------------------------------- */
-const slides = document.querySelectorAll('.mv__slide');
-const dots = document.querySelectorAll('.mv__dots button');
-let current = 0;
-let timer;
-
-function showSlide(index) {
-    slides[current].classList.remove('is-active');
-    dots[current].classList.remove('is-active');
-    current = index;
-    slides[current].classList.add('is-active');
-    dots[current].classList.add('is-active');
-}
-
-function startSlider() {
-    timer = setInterval(() => {
-        showSlide((current + 1) % slides.length);
-    }, 5000);
-}
-
-dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-        clearInterval(timer);
-        showSlide(i);
-        startSlider();
+/* ==========================================================
+   SPメニュー：リンクを押したら閉じる
+========================================================== */
+function initNav() {
+  const check = document.getElementById("nav-toggle");
+  document.querySelectorAll(".nav a").forEach((link) => {
+    link.addEventListener("click", () => {
+      check.checked = false;
     });
-});
+  });
+}
 
-startSlider();
+/* ==========================================================
+   スクロールでふわっと表示
+========================================================== */
+function initFadeIn() {
+  const targets = document.querySelectorAll(".heading, .about__item, .building__points, .si__text, .lesson, .lessons__extra, .numbers__item, .numbers__bus, .cta-band__inner, .support__item, .contact__item, .access__inner");
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
 
-/* ---------------------------------------------
-   2. スマホメニュー：リンクを押したら閉じる
---------------------------------------------- */
-const navToggle = document.getElementById('nav-toggle');
-
-document.querySelectorAll('.gnav a').forEach((link) => {
-    link.addEventListener('click', () => {
-        navToggle.checked = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-show");
+        observer.unobserve(entry.target);
+      }
     });
-});
+  }, { rootMargin: "0px 0px -10% 0px" });
 
-/* ---------------------------------------------
-   3. 先生紹介のカルーセル
-   SP：1人ずつ真ん中に／タブレット：2人表示／PC：3人表示で2人ずつ進む
-   6秒ごとに自動で進み、指でスワイプ・矢印・ドットでも動かせる
---------------------------------------------- */
-const viewport = document.querySelector('.staff__viewport');
-const cards = [...document.querySelectorAll('.staff__list li')];
-const dotsBox = document.querySelector('.staff__dots');
-const prevBtn = document.querySelector('.staff__arrow--prev');
-const nextBtn = document.querySelector('.staff__arrow--next');
-let staffIndex = 0;
-let staffTimer;
-
-// 画面幅ごとの「一度に見える人数」と「進む人数」
-function staffSetting() {
-    if (window.matchMedia('(min-width: 960px)').matches) {
-        return { show: 3, step: 2 };
-    }
-    if (window.matchMedia('(min-width: 600px)').matches) {
-        return { show: 2, step: 2 };
-    }
-    return { show: 1, step: 1 };
+  targets.forEach((el) => {
+    el.classList.add("js-fade");
+    observer.observe(el);
+  });
 }
 
-// 止まれる位置（左端に来る先生の番号）の一覧
-function stops() {
-    const { show, step } = staffSetting();
-    const last = cards.length - show;
-    const list = [];
-    for (let i = 0; i < last; i += step) {
-        list.push(i);
-    }
-    list.push(last);
-    return list;
+/* ==========================================================
+   ページトップボタン：少しスクロールしたら出す
+========================================================== */
+function initPagetop() {
+  const button = document.querySelector(".pagetop");
+  window.addEventListener("scroll", () => {
+    button.classList.toggle("is-show", window.scrollY > 600);
+  }, { passive: true });
 }
 
-function makeDots() {
-    dotsBox.innerHTML = '';
-    stops().forEach((stop, i) => {
-        const dot = document.createElement('button');
-        dot.setAttribute('aria-label', `${i + 1}つ目へ`);
-        dot.addEventListener('click', () => goTo(stop));
-        dotsBox.appendChild(dot);
-    });
+/* ==========================================================
+   Googleマップの誤操作対策（WD27_03 main.js の書き方）
+   スクロール中に地図が勝手にズームしないよう、最初は操作できなくしておく
+========================================================== */
+function initMap() {
+  const frame = document.getElementById("access-map");
+  const map = document.getElementById("map-iframe");
+  if (!frame || !map) return;
+
+  const lock = () => frame.classList.add("is-locked");
+
+  // クリック（タップ）したら地図を操作できるように
+  frame.addEventListener("click", () => frame.classList.remove("is-locked"));
+
+  // PC：地図から離れたら、SP：タッチが終わったら、また操作できなくする
+  frame.addEventListener("mouseleave", lock);
+  map.addEventListener("touchend", lock);
 }
 
-function scrollLeftFor(index) {
-    const card = cards[index];
-    if (staffSetting().show === 1) {
-        // SPはカードを真ん中に
-        return card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-    }
-    return card.offsetLeft - cards[0].offsetLeft;
-}
+/* ==========================================================
+   数字のカウントアップ：見えたら 0 から数字が増える
+========================================================== */
+function initCountUp() {
+  const counters = document.querySelectorAll(".js-count");
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
 
-// ゆっくり（0.9秒かけて）横に動かす
-function goTo(index) {
-    const start = viewport.scrollLeft;
-    const end = Math.min(scrollLeftFor(index), viewport.scrollWidth - viewport.clientWidth);
-    if (reduceMotion) {
-        viewport.scrollLeft = end;
-        return;
-    }
-    const duration = 900;
-    const startTime = performance.now();
-    viewport.style.scrollSnapType = 'none';
-
-    function step(now) {
-        const t = Math.min((now - startTime) / duration, 1);
-        const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        viewport.scrollLeft = start + (end - start) * ease;
-        if (t < 1) {
-            requestAnimationFrame(step);
-        } else {
-            viewport.style.scrollSnapType = '';
-        }
-    }
+  const run = (el) => {
+    const to = Number(el.dataset.to);
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      // 最後にゆっくり止まるように
+      el.textContent = Math.round(to * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) requestAnimationFrame(step);
+    };
     requestAnimationFrame(step);
-}
+  };
 
-// スクロール位置から、今どの先生が見えているかを調べて表示を更新
-function updateStaff() {
-    let nearest = 0;
-    cards.forEach((card, i) => {
-        if (Math.abs(scrollLeftFor(i) - viewport.scrollLeft) < Math.abs(scrollLeftFor(nearest) - viewport.scrollLeft)) {
-            nearest = i;
-        }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        run(entry.target);
+        observer.unobserve(entry.target);
+      }
     });
-    staffIndex = nearest;
-    cards.forEach((card, i) => card.classList.toggle('is-current', i === nearest));
+  }, { threshold: 0.6 });
 
-    const list = stops();
-    let active = 0;
-    list.forEach((stop, i) => {
-        if (stop <= nearest) {
-            active = i;
-        }
-    });
-    [...dotsBox.children].forEach((dot, i) => dot.classList.toggle('is-active', i === active));
+  counters.forEach((el) => observer.observe(el));
 }
 
-function nextStaff() {
-    const list = stops();
-    const next = list.find((stop) => stop > staffIndex);
-    goTo(next === undefined ? 0 : next);
+/* 保存よけ
+   ・ページ全体で右クリックメニューを出さない
+   ・写真はドラッグで持ち出せないようにする
+   ・開発者ツール／ソース表示／保存／印刷のショートカットキーを止める
+   ※ブラウザのメニューから開く開発者ツールや、OSのスクリーンショットは
+     Webページからは止められない（気軽に保存されないようにするための対策） */
+function initGuard() {
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+  document.addEventListener("dragstart", (event) => {
+    if (event.target.closest("img")) event.preventDefault();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    const ctrl = event.ctrlKey || event.metaKey; // Windows は Ctrl、Mac は ⌘
+    const blocked =
+      key === "f12" ||
+      (ctrl && event.shiftKey && ["i", "j", "c"].includes(key)) || // 開発者ツール・コンソール・要素の検証
+      (ctrl && event.altKey && ["i", "j", "c"].includes(key)) ||   // Mac の ⌘⌥I など
+      (ctrl && ["u", "s", "p"].includes(key));                      // ソース表示・保存・印刷
+    if (blocked) event.preventDefault();
+  });
+
+  // PrintScreen キーを押したら、クリップボードの中身を空にする（Windows のブラウザで効くことがある）
+  document.addEventListener("keyup", (event) => {
+    if (event.key === "PrintScreen") navigator.clipboard?.writeText("").catch(() => {});
+  });
 }
 
-function prevStaff() {
-    const list = stops();
-    const prev = [...list].reverse().find((stop) => stop < staffIndex);
-    goTo(prev === undefined ? list[list.length - 1] : prev);
-}
-
-function startStaff() {
-    stopStaff();
-    if (!reduceMotion) {
-        staffTimer = setInterval(nextStaff, 6000);
-    }
-}
-
-function stopStaff() {
-    clearInterval(staffTimer);
-}
-
-
-nextBtn.addEventListener('click', () => { nextStaff(); startStaff(); });
-prevBtn.addEventListener('click', () => { prevStaff(); startStaff(); });
-viewport.addEventListener('scroll', updateStaff, { passive: true });
-
-// 触っている間・マウスが乗っている間は自動で進まない
-viewport.addEventListener('pointerenter', stopStaff);
-viewport.addEventListener('pointerleave', startStaff);
-viewport.addEventListener('touchstart', stopStaff, { passive: true });
-viewport.addEventListener('touchend', startStaff);
-
-// 画面に見えている間だけ自動で進める
-new IntersectionObserver((entries) => {
-    entries[0].isIntersecting ? startStaff() : stopStaff();
-}).observe(viewport);
-
-window.addEventListener('resize', () => {
-    makeDots();
-    updateStaff();
+document.addEventListener("DOMContentLoaded", () => {
+  initGuard();
+  initNav();
+  initCountUp();
+  initMap();
+  initFadeIn();
+  initPagetop();
 });
-
-makeDots();
-updateStaff();
-
-/* ---------------------------------------------
-   4. スクロールで下からふわっと表示
---------------------------------------------- */
-if (!reduceMotion) {
-    document.documentElement.classList.add('js-anim');
-
-    const targets = document.querySelectorAll(
-        '.hd, .new-school__main, .about__main, .si__main, .si__note, .count, .bus, .access__wrap, ' +
-        '.policy li, .lesson__list li, .timeline li, .season li, .gallery li, .service__list li, .contact__item, .topics__list li'
-    );
-
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-show');
-                fadeObserver.unobserve(entry.target);
-            }
-        });
-    }, { rootMargin: '0px 0px -10% 0px' });
-
-    targets.forEach((target) => {
-        // 並んでいるカードは少しずつ遅らせて順番に出す
-        const index = [...target.parentElement.children].indexOf(target);
-        if (target.tagName === 'LI') {
-            target.style.transitionDelay = `${(index % 4) * 0.1}s`;
-        }
-        target.classList.add('fade');
-        fadeObserver.observe(target);
-    });
-}

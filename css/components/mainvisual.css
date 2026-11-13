@@ -1,0 +1,362 @@
+/* ==========================================================
+   Main Visual
+   背景画像 images/bg-main.webp（ひだまりの光と葉っぱ）
+   SP：開いてすぐの1画面に写真とキャッチコピーが両方入る
+========================================================== */
+.mv {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-sm) var(--space-xl);
+  background: var(--color-base) url("../../images/bg-main.webp") 85% top / cover no-repeat;
+}
+
+/* 下のふちを波にして、次のセクションへやわらかくつなぐ */
+.mv::after {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 1rem;
+  content: "";
+  background-image: radial-gradient(circle at 1rem 1rem, var(--color-base) 0.95rem, transparent 1rem);
+  background-size: 2rem 1rem;
+  background-repeat: repeat-x;
+  transform: scaleY(-1);
+  transform-origin: bottom;
+  translate: 0 -1rem;
+}
+
+.mv__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: min(100% - 2.5rem, var(--layout-container));
+  margin-inline: auto;
+}
+
+/* --- 写真（シール風のフレーム） --- */
+.mv__photos {
+  position: relative;
+  margin-inline-end: 0.5rem;
+}
+
+.mv__photos::before {
+  position: absolute;
+  inset: 0.75rem -0.5rem -0.75rem 0.5rem;
+  content: "";
+  background-color: var(--color-main-light);
+  background-image: radial-gradient(var(--color-main) 2px, transparent 2.5px);
+  background-size: 0.875rem 0.875rem;
+  border-radius: var(--radius-lg);
+}
+
+.mv__slides {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  max-height: 38svh;
+  width: 100%;
+  border: 0.375rem solid var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.mv__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.mv__slide.is-active {
+  opacity: 1;
+}
+
+.mv__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 6s linear;
+}
+
+.mv__slide.is-active img {
+  transform: scale(1);
+}
+
+.mv__dots {
+  position: absolute;
+  inset-block-end: 0.875rem;
+  inset-inline-start: 50%;
+  display: flex;
+  gap: 0.375rem;
+  translate: -50% 0;
+}
+
+.mv__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.mv__dot.is-active {
+  width: 1.5rem;
+  background-color: var(--color-white);
+}
+
+/* 「新園舎完成！」の丸いシール（メインカラー） */
+.mv__badge {
+  position: absolute;
+  inset-block-start: -0.75rem;
+  inset-inline-end: -0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  font-family: var(--font-family-pop);
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  color: var(--color-white);
+  text-align: center;
+  background-color: var(--color-main);
+  border-radius: 50%;
+  outline: 2px dashed rgba(255, 255, 255, 0.8);
+  outline-offset: -0.375rem;
+  box-shadow: 0 0.25rem 0 var(--color-main-dark);
+  rotate: 10deg;
+  animation: badge-swing 3s ease-in-out infinite;
+}
+
+.mv__badge .material-symbols-rounded {
+  font-size: 1.125rem;
+}
+
+.mv__badge-small {
+  font-size: 0.625rem;
+}
+
+@keyframes badge-swing {
+  0%, 100% { rotate: 10deg; }
+  50% { rotate: -4deg; }
+}
+
+/* --- キャッチコピー --- */
+.mv__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.875rem 0.125rem 0.625rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-main-dark);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-main-light);
+  border-radius: var(--radius-full);
+}
+
+.mv__label .material-symbols-rounded {
+  font-size: 1.125rem;
+  color: var(--color-main);
+}
+
+.mv__copy {
+  margin-block-start: 0.75rem;
+  font-family: var(--font-family-pop);
+  font-size: clamp(1.75rem, 1.2rem + 2.6vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+/* 「花咲かせます。」だけ桜色にして、下にやわらかいマーカー */
+.mv__copy-em {
+  font-style: normal;
+  color: var(--color-main);
+  background: linear-gradient(transparent 68%, var(--color-main-light) 68%);
+}
+
+.mv__lead {
+  margin-block-start: 0.5rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+}
+
+.mv__buttons {
+  display: none;
+}
+
+/* ==========================================================
+   Tablet（600px〜）
+========================================================== */
+@media (width >= 600px) {
+  .mv__slides {
+    max-height: none;
+  }
+
+  .mv__badge {
+    width: 7rem;
+    height: 7rem;
+    font-size: 1rem;
+  }
+
+  .mv__badge-small {
+    font-size: 0.75rem;
+  }
+
+  .mv__lead {
+    font-size: var(--font-size-md);
+  }
+
+  .mv__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-block-start: var(--space-md);
+  }
+
+}
+
+/* ==========================================================
+   PC（960px〜）：画面いっぱいの写真に、白いカードでコピーを重ねる
+   （WordPressの園向けテーマによくある「フルワイドのヒーロー」）
+========================================================== */
+@media (width >= 960px) {
+  .mv {
+    padding-block: 0 2.5rem;
+  }
+
+  .mv::after {
+    display: none;
+  }
+
+  .mv__inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+
+  .mv__photos {
+    margin: 0;
+  }
+
+  .mv__slide img {
+    object-position: center 30%;
+  }
+
+  .mv__photos::before {
+    display: none;
+  }
+
+  /* 写真の下端をゆるいカーブに */
+  .mv__slides {
+    aspect-ratio: auto;
+    height: clamp(34rem, 72vh, 44rem);
+    border: 0;
+    border-radius: 0 0 50% 50% / 0 0 3.5rem 3.5rem;
+    box-shadow: none;
+  }
+
+  .mv__dots {
+    inset-block-end: 2.5rem;
+    inset-inline-start: auto;
+    inset-inline-end: max(2.5rem, (100% - var(--layout-container)) / 2);
+    translate: none;
+  }
+
+  .mv__badge {
+    inset-block-start: 2rem;
+    inset-inline-end: max(2.5rem, (100% - var(--layout-container)) / 2);
+    width: 8.5rem;
+    height: 8.5rem;
+    font-size: 1.1875rem;
+  }
+
+  .mv__badge .material-symbols-rounded {
+    font-size: 1.5rem;
+  }
+
+  .mv__badge-small {
+    font-size: 0.875rem;
+  }
+
+  .mv__body {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: max(2.5rem, (100% - var(--layout-container)) / 2);
+    width: min(32rem, 45%);
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    /* WD27_06 リキッドグラス：ふちだけ少し透けるくらいに控えめに（文字は読みやすく） */
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 2.5rem;
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow: var(--shadow-soft);
+    translate: 0 -62%;
+  }
+
+  .mv__label {
+    font-size: var(--font-size-sm);
+  }
+
+  .mv__copy {
+    margin-block-start: var(--space-sm);
+    font-size: clamp(2rem, 1rem + 1.8vw, 2.75rem);
+  }
+
+  .mv__lead {
+    margin-block-start: var(--space-sm);
+    font-size: var(--font-size-md);
+    line-height: 1.9;
+  }
+}
+
+/* ==========================================================
+   ひらひら舞う葉っぱ（CSSの形だけで作る）
+========================================================== */
+.mv__petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mv__petal {
+  position: absolute;
+  inset-block-start: -2rem;
+  width: 0.875rem;
+  height: 1.0625rem;
+  background-color: var(--color-leaf);
+  border-radius: 0 100%;
+  opacity: 0.9;
+  animation: petal-fall 11s linear infinite;
+}
+
+.mv__petal:nth-child(1) { inset-inline-start: 6%; animation-delay: -1s; }
+.mv__petal:nth-child(2) { inset-inline-start: 18%; animation-delay: -6s; animation-duration: 13s; scale: 0.7; }
+.mv__petal:nth-child(3) { inset-inline-start: 31%; animation-delay: -3s; scale: 1.2; }
+.mv__petal:nth-child(4) { inset-inline-start: 44%; animation-delay: -9s; animation-duration: 14s; }
+.mv__petal:nth-child(5) { inset-inline-start: 56%; animation-delay: -4.5s; scale: 0.8; }
+.mv__petal:nth-child(6) { inset-inline-start: 67%; animation-delay: -7.5s; animation-duration: 12s; scale: 1.3; }
+.mv__petal:nth-child(7) { inset-inline-start: 76%; animation-delay: -2s; scale: 0.6; }
+.mv__petal:nth-child(8) { inset-inline-start: 84%; animation-delay: -10s; animation-duration: 15s; }
+.mv__petal:nth-child(9) { inset-inline-start: 91%; animation-delay: -5.5s; scale: 1.1; }
+.mv__petal:nth-child(10) { inset-inline-start: 97%; animation-delay: -8.5s; animation-duration: 12s; scale: 0.75; }
+
+@keyframes petal-fall {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(2.5rem, 25vh) rotate(90deg); }
+  50% { transform: translate(-1rem, 50vh) rotate(200deg); }
+  75% { transform: translate(2rem, 75vh) rotate(290deg); }
+  100% { transform: translate(-0.5rem, 100vh) rotate(400deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv__petals {
+    display: none;
+  }
+}

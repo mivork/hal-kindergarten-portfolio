@@ -1,0 +1,1404 @@
+/* ==========================================================
+   Sections
+========================================================== */
+
+/* ---------- TOPICS ---------- */
+.topics {
+  padding-block-start: var(--space-lg);
+}
+
+.topics__heading {
+  position: relative;
+  margin-block-end: var(--space-md);
+}
+
+.topics__more {
+  position: absolute;
+  inset-block-end: 1.4rem;
+  inset-inline-end: 0;
+  font-size: var(--font-size-sm);
+}
+
+.topics__list {
+  padding: 0.5rem var(--space-sm);
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sticker);
+}
+
+.topics__item + .topics__item {
+  border-block-start: 1px solid var(--color-line);
+}
+
+.topics__link {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding-block: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.topics__date {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-sub);
+}
+
+.topics__title {
+  grid-column: 1 / -1;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.topics__link:hover {
+  color: var(--color-main-dark);
+}
+
+@media (width >= 600px) {
+  .topics__link {
+    grid-template-columns: 7rem 1fr;
+  }
+
+  .topics__title {
+    grid-column: auto;
+  }
+
+  .topics__list {
+    padding-inline: var(--space-lg);
+  }
+}
+
+@media (width >= 960px) {
+  .topics {
+    padding-block-start: var(--space-xl);
+  }
+
+  .topics__inner {
+    display: grid;
+    grid-template-columns: 19rem 1fr;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .topics__heading {
+    margin-block-end: 0;
+  }
+
+  .topics__more {
+    position: static;
+    margin-block-start: var(--space-md);
+  }
+}
+
+/* ---------- 新園舎 ---------- */
+.building__body {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.building__photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "main main"
+    "sub1 sub2";
+  gap: 0.75rem;
+}
+
+.building__photo--main { grid-area: main; aspect-ratio: 3 / 2; rotate: -1.5deg; }
+.building__photo--sub1 { grid-area: sub1; aspect-ratio: 4 / 3; rotate: 2deg; }
+.building__photo--sub2 { grid-area: sub2; aspect-ratio: 4 / 3; rotate: -2deg; }
+
+.building__points {
+  display: grid;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sticker);
+}
+
+@media (width >= 960px) {
+  .building__body {
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .building__photos {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+      "main main main main main main"
+      ". sub1 sub1 sub2 sub2 sub2";
+  }
+
+  .building__photo--sub1,
+  .building__photo--sub2 {
+    margin-block-start: -2.5rem;
+  }
+
+  .building__points {
+    padding: var(--space-lg);
+  }
+}
+
+/* ---------- SIあそび ---------- */
+.si__body {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.si__photo {
+  aspect-ratio: 3 / 2;
+  rotate: -2deg;
+}
+
+.si__flow {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.si__step {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  max-width: 7.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  background-color: var(--color-white);
+  border: 0.25rem solid var(--color-main-light);
+  border-radius: 50%;
+}
+
+/* 3つめ「勉強がだいすき！」をいちばん目立たせる */
+.si__step:last-child {
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-color: var(--color-main);
+}
+
+.si__step-icon {
+  font-size: 1.75rem;
+  color: var(--color-main);
+}
+
+.si__step:last-child .si__step-icon {
+  color: var(--color-white);
+}
+
+/* 丸と丸のあいだの小さな矢印（三角） */
+.si__step + .si__step::before {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: -0.875rem;
+  content: "";
+  border-block: 0.375rem solid transparent;
+  border-inline-start: 0.5rem solid var(--color-main);
+  translate: 0 -50%;
+}
+
+.si__desc {
+  margin-block-start: var(--space-md);
+}
+
+.si__note {
+  margin-block: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-main-pale);
+  border: 2px solid var(--color-main-light);
+  border-radius: var(--radius-md);
+}
+
+.si__note-title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.si__note-title .material-symbols-rounded {
+  font-size: 1.25rem;
+}
+
+.si__note-text {
+  font-size: var(--font-size-sm);
+}
+
+@media (width >= 600px) {
+  .si__flow {
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .si__step {
+    font-size: var(--font-size-sm);
+  }
+
+  .si__step-icon {
+    font-size: 2.25rem;
+  }
+
+  .si__step + .si__step::before {
+    inset-inline-start: -1.5rem;
+  }
+}
+
+@media (width >= 960px) {
+  .si__body {
+    grid-template-columns: 5fr 6fr;
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+
+  .si__flow {
+    justify-content: flex-start;
+  }
+
+  .si__step {
+    max-width: 8.5rem;
+  }
+}
+
+/* ---------- 特別講師 ---------- */
+.lessons__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  width: fit-content;
+  margin: calc(var(--space-md) * -1) auto var(--space-lg);
+  padding: 0.5rem 1.25rem;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-main-dark);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-main-light);
+  border-radius: var(--radius-full);
+}
+
+.lessons__badge .material-symbols-rounded {
+  font-size: 1.25rem;
+  color: var(--color-main);
+}
+
+.lessons__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* 7つなので、余りが出ても中央にそろうように flex で並べる */
+.lessons__list > .lesson {
+  flex: 0 0 calc((100% - 0.75rem) / 2);
+}
+
+.lesson {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sticker);
+  transition: transform 0.3s var(--ease);
+}
+
+.lesson:hover {
+  transform: translateY(-0.375rem) rotate(-1deg);
+}
+
+.lesson__icon {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  font-size: 2.25rem;
+  color: var(--color-main);
+  background-color: var(--color-main-pale);
+  border: 2px solid var(--color-main-light);
+  border-radius: 50%;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.lesson:hover .lesson__icon {
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+.lesson__name {
+  margin-block-start: 0.5rem;
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  color: var(--color-main-dark);
+}
+
+.lesson__note {
+  display: block;
+  width: fit-content;
+  margin: 0.375rem auto 0;
+  padding-inline: 0.625rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: var(--radius-full);
+}
+
+.lessons__extra {
+  display: grid;
+  gap: var(--space-lg);
+  margin-block-start: var(--space-xl);
+  padding: var(--space-md);
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+}
+
+.lessons__photo {
+  aspect-ratio: 3 / 2;
+  rotate: 2deg;
+}
+
+.lessons__extra-title {
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+}
+
+.lessons__extra-text {
+  margin-block: 0.5rem var(--space-sm);
+  font-size: var(--font-size-sm);
+}
+
+@media (width >= 600px) {
+  .lessons__list > .lesson {
+    flex-basis: calc((100% - 0.75rem * 3) / 4);
+  }
+}
+
+@media (width >= 960px) {
+  .lessons__list > .lesson {
+    flex-basis: calc((100% - 0.75rem * 6) / 7);
+    padding-inline: 0.5rem;
+  }
+
+  .lesson__icon {
+    width: 4.75rem;
+    height: 4.75rem;
+    font-size: 2.75rem;
+  }
+
+  .lesson__name {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .lessons__extra {
+    grid-template-columns: 22rem 1fr;
+    align-items: center;
+    gap: var(--space-xl);
+    padding: var(--space-lg) var(--space-xl);
+  }
+}
+
+/* ---------- ハルの毎日（写真が右から左へ流れる帯） ---------- */
+.days__marquee {
+  overflow: hidden;
+  padding-block: 1rem 1.5rem;
+}
+
+.days__track {
+  display: flex;
+  width: max-content;
+  animation: days-flow 60s linear infinite;
+}
+
+/* マウスを乗せると止まる */
+.days__marquee:hover .days__track {
+  animation-play-state: paused;
+}
+
+.days__list {
+  display: flex;
+  gap: var(--space-md);
+  padding-inline-end: var(--space-md);
+}
+
+.days__photo {
+  position: relative;
+  width: 15rem;
+  aspect-ratio: 3 / 2;
+}
+
+.days__item:nth-child(odd) .days__photo { rotate: -2deg; }
+.days__item:nth-child(even) .days__photo { rotate: 2deg; translate: 0 0.75rem; }
+
+@keyframes days-flow {
+  to { transform: translateX(-50%); }
+}
+
+@media (width >= 960px) {
+  .days__photo {
+    width: 21rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .days__marquee {
+    overflow-x: auto;
+  }
+
+  .days__track {
+    animation: none !important;
+  }
+}
+
+/* ---------- 途中のお問合せ帯（アクセント） ---------- */
+.cta-band {
+  position: relative;
+  padding-block: var(--space-xl);
+  background: var(--color-main-light) url("../../images/bg-main.webp") center / cover no-repeat;
+}
+
+.cta-band__inner {
+  display: grid;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.cta-band__title {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--color-main-dark);
+}
+
+.cta-band__lead {
+  margin-block-start: 0.5rem;
+  font-size: var(--font-size-sm);
+}
+
+.cta-band__buttons {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cta-band .button--accent {
+  font-family: var(--font-family-pop);
+  font-weight: 400;
+}
+
+@media (width >= 600px) {
+  .cta-band__buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (width >= 960px) {
+  .cta-band__inner {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-xl);
+    padding: var(--space-lg) var(--space-xl);
+    text-align: start;
+  }
+
+  .cta-band__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .cta-band__buttons {
+    grid-template-columns: auto auto;
+  }
+}
+
+/* ---------- サポート（あずかり保育・ハル塾） ---------- */
+.support__list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (width >= 600px) {
+  .support__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* ---------- お問合せ（アクセント） ---------- */
+.contact__box {
+  padding: var(--space-xl) var(--space-md);
+  background-color: var(--color-accent-light);
+  background-image: radial-gradient(var(--color-white) 3px, transparent 3.5px);
+  background-size: 1.5rem 1.5rem;
+  border-radius: var(--radius-lg);
+}
+
+.contact__box .heading__label {
+  color: var(--color-accent-dark);
+  border-color: var(--color-accent-soft);
+}
+
+.contact__box .heading__label .material-symbols-rounded {
+  color: var(--color-accent);
+}
+
+.contact__list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* 3枚とも「番号・アイコン・見出し・一言・3項目の表・ボタン」の同じ形にそろえる */
+.contact__item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  text-align: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0.375rem 0 rgba(201, 97, 26, 0.12);
+}
+
+.contact__num {
+  position: absolute;
+  inset-block-start: 1rem;
+  inset-inline-start: 1.25rem;
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent-soft);
+}
+
+.contact__icon {
+  display: grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  font-size: 2.25rem;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  outline: 2px dashed rgba(255, 255, 255, 0.85);
+  outline-offset: -0.375rem;
+}
+
+.contact__title {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.contact__text {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--color-accent-dark);
+}
+
+/* 項目名（左のラベル）と内容の表 */
+.contact__dl {
+  display: grid;
+  align-content: start;
+  width: 100%;
+  margin-block: 0.5rem var(--space-sm);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  text-align: start;
+  border-block-start: 1px solid var(--color-line);
+}
+
+.contact__row {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  padding-block: 0.75rem;
+  border-block-end: 1px solid var(--color-line);
+}
+
+.contact__row dt {
+  padding: 0.0625rem 0.75rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  text-align: center;
+  background-color: var(--color-accent-light);
+  border-radius: var(--radius-full);
+}
+
+.contact__button {
+  width: 100%;
+  font-family: var(--font-family-pop);
+  font-weight: 400;
+}
+
+@media (width >= 600px) {
+  .contact__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 3枚目はタブレットでは横いっぱいに */
+  .contact__item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width >= 960px) {
+  .contact__box {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .contact__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .contact__item:last-child {
+    grid-column: auto;
+  }
+}
+
+/* ---------- アクセス（Googleマップをかわいく） ---------- */
+.access {
+  overflow-x: clip; /* テープの飾りが画面の外にはみ出さないように */
+}
+
+.access__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+.access__map {
+  position: relative;
+  padding-block-start: 1.25rem;
+}
+
+/* 地図をシールのように：白いふち・ドットの影・マスキングテープ */
+.access__frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 0.5rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0.75rem 0.75rem 0 var(--color-main-light);
+  rotate: -1.5deg;
+}
+
+.access__frame::before,
+.access__frame::after {
+  position: absolute;
+  z-index: 1;
+  width: 5.5rem;
+  height: 1.5rem;
+  content: "";
+  background-color: rgba(229, 241, 211, 0.9);
+  background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(255, 255, 255, 0.6) 6px 12px);
+}
+
+.access__frame::before {
+  inset-block-start: -0.5rem;
+  inset-inline-start: -1.25rem;
+  rotate: -35deg;
+}
+
+.access__frame::after {
+  inset-block-end: -0.25rem;
+  inset-inline-end: -1.5rem;
+  rotate: -35deg;
+}
+
+/* 地図が読み込まれるまで見える下地 */
+.access__loading {
+  position: absolute;
+  inset: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--color-main-dark);
+  text-align: center;
+  background-color: var(--color-main-pale);
+  background-image: radial-gradient(var(--color-main-light) 2.5px, transparent 3px);
+  background-size: 1.25rem 1.25rem;
+  border-radius: calc(var(--radius-lg) - 0.5rem);
+}
+
+.access__loading .material-symbols-rounded {
+  font-size: 3rem;
+  color: var(--color-main);
+}
+
+.access__frame iframe {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 0.5rem);
+  /* 地図の色をサイトの配色になじませる */
+  filter: saturate(0.75) sepia(0.12) brightness(1.03);
+}
+
+/* 「ハル幼稚園はここ！」のふきだし */
+.access__pin {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 1.125rem 0.375rem 0.75rem;
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-sm);
+  color: var(--color-white);
+  white-space: nowrap;
+  background-color: var(--color-main);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0.25rem 0 var(--color-main-dark);
+  translate: -50% 0;
+  animation: pin-bounce 2.4s ease-in-out infinite;
+}
+
+.access__pin::after {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 50%;
+  content: "";
+  border-inline: 0.5rem solid transparent;
+  border-block-start: 0.625rem solid var(--color-main);
+  translate: -50% -1px;
+}
+
+.access__pin .material-symbols-rounded {
+  font-size: 1.25rem;
+}
+
+@keyframes pin-bounce {
+  0%, 100% { translate: -50% 0; }
+  50% { translate: -50% -0.375rem; }
+}
+
+.access__row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  padding-block: 0.75rem;
+  border-block-end: 1px solid var(--color-line);
+}
+
+.access__row dt {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+.access__row dt .material-symbols-rounded {
+  font-size: 1.25rem;
+}
+
+.access__route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block: var(--space-md);
+  padding: 0.75rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius-full);
+}
+
+.access__step {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+/* ステップのあいだの点線 */
+.access__step + .access__step::before {
+  width: 0.5rem;
+  margin-inline-end: 0.125rem;
+  content: "";
+  border-block-start: 3px dotted var(--color-main);
+}
+
+.access__step-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  color: var(--color-main);
+  background-color: var(--color-main-pale);
+  border-radius: 50%;
+}
+
+.access__step--goal .access__step-icon {
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+@media (width >= 600px) {
+  .access__step {
+    font-size: var(--font-size-sm);
+  }
+
+  .access__step + .access__step::before {
+    width: 2.5rem;
+  }
+}
+
+@media (width >= 960px) {
+  .access__inner {
+    grid-template-columns: 6fr 5fr;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+}
+
+/* ==========================================================
+   見学・資料請求（MVのすぐ下：いちばんの入口）
+   ページの中で緑（アクセント）が集まる場所。ピンクの中で目立たせる
+========================================================== */
+.entry {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--space-lg) var(--space-md);
+}
+
+.entry__title {
+  margin-block-end: var(--space-md);
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.entry__title-small {
+  display: block;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.entry__list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.entry__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  padding-block-start: var(--space-lg);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-accent-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* 角に小さな葉っぱ */
+.entry__item::after {
+  position: absolute;
+  inset-block-start: -0.75rem;
+  inset-inline-end: 1.5rem;
+  width: 1.5rem;
+  height: 1.8rem;
+  content: "";
+  background-color: var(--color-leaf);
+  border-radius: 0 100%;
+  rotate: 25deg;
+}
+
+.entry__ribbon {
+  position: absolute;
+  inset-block-start: -0.875rem;
+  inset-inline-start: 1.25rem;
+  padding: 0.125rem 0.875rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: var(--radius-full);
+}
+
+.entry__icon {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 2rem;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  outline: 2px dashed rgba(255, 255, 255, 0.85);
+  outline-offset: -0.3125rem;
+}
+
+.entry__name {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  color: var(--color-accent-dark);
+}
+
+.entry__text {
+  margin-block-start: 0.25rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+}
+
+.entry__button {
+  grid-column: 1 / -1;
+  justify-content: center;
+  width: 100%;
+}
+
+.entry__tel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 0.75rem;
+  margin-block-start: var(--space-md);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
+.entry__tel a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  font-family: var(--font-family-pop);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--color-accent-dark);
+}
+
+.entry__tel .material-symbols-rounded {
+  font-size: 1.75rem;
+}
+
+@media (width >= 600px) {
+  .entry__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .entry__item {
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+@media (width >= 960px) {
+  .entry {
+    margin-block-start: -6rem;
+    padding-block: 0 var(--space-lg);
+  }
+
+  .entry__inner {
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    background-color: var(--color-white);
+    border-radius: 2.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .entry__item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    justify-items: stretch;
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+    text-align: start;
+  }
+
+  .entry__icon {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.75rem;
+  }
+
+  .entry__name {
+    font-size: 1.625rem;
+  }
+}
+
+/* Googleマップの誤操作対策（WD27_03）：ロック中は地図を触れなくして案内を出す */
+.access__frame.is-locked iframe {
+  pointer-events: none;
+}
+
+.access__hint {
+  position: absolute;
+  inset-block-end: 1.25rem;
+  inset-inline-start: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.875rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-white);
+  white-space: nowrap;
+  background-color: rgba(62, 58, 51, 0.75);
+  border-radius: var(--radius-full);
+  translate: -50% 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.access__hint .material-symbols-rounded {
+  font-size: 1.125rem;
+}
+
+.access__frame:not(.is-locked) .access__hint {
+  opacity: 0;
+}
+
+/* サポート：PCでは写真と文章を左右交互に（WD27_06 の nth-child(even) + row-reverse） */
+@media (width >= 960px) {
+  .support__list {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .support__item .card {
+    flex-direction: row;
+  }
+
+  .support__item:nth-child(even) .card {
+    flex-direction: row-reverse;
+  }
+
+  .support__item .card__photo {
+    flex: 0 0 44%;
+    aspect-ratio: auto;
+    min-height: 16rem;
+  }
+
+  .support__item .card__body {
+    justify-content: center;
+    padding: var(--space-xl) var(--space-2xl);
+  }
+
+  .support__item .card__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .support__item .card__text {
+    font-size: var(--font-size-md);
+  }
+
+  .support__item .card__more {
+    margin-block-start: var(--space-md);
+  }
+}
+
+.si__desc + .si__desc {
+  margin-block-start: 0.75rem;
+}
+
+/* ==========================================================
+   ハルの想い：写真と文章を左右交互に（WD27_06 の nth-child(even) + row-reverse）
+========================================================== */
+.about__list {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.about__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.about__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.about__num {
+  font-family: var(--font-family-pop);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--color-main-light);
+  -webkit-text-stroke: 2px var(--color-main);
+}
+
+.about__title {
+  margin-block: 0.5rem var(--space-sm);
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-main-dark);
+}
+
+.about__text {
+  font-size: var(--font-size-sm);
+}
+
+.about__text + .about__text {
+  margin-block-start: 0.75rem;
+}
+
+.about__body .more {
+  margin-block-start: var(--space-sm);
+}
+
+@media (width >= 960px) {
+  .about__list {
+    gap: var(--space-2xl);
+  }
+
+  .about__item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .about__item:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .about__photo {
+    flex: 0 0 46%;
+    rotate: -2deg;
+  }
+
+  .about__item:nth-child(even) .about__photo {
+    rotate: 2deg;
+  }
+
+  .about__body {
+    flex: 1;
+  }
+
+  .about__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .about__text {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* ==========================================================
+   数字で見るハル幼稚園（メインカラーの帯）＋送迎バス
+========================================================== */
+.numbers {
+  color: var(--color-white);
+  background-color: var(--color-main);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 3px, transparent 3.5px);
+  background-size: 1.75rem 1.75rem;
+}
+
+.numbers .heading__label {
+  color: var(--color-main-dark);
+  border-color: var(--color-white);
+}
+
+.numbers .heading__en {
+  color: var(--color-main);
+}
+
+.numbers__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.numbers__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md) var(--space-xs);
+  color: var(--color-text);
+  text-align: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0.375rem 0 var(--color-main-dark);
+}
+
+.numbers__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.75rem;
+  color: var(--color-main);
+  background-color: var(--color-main-pale);
+  border-radius: 50%;
+}
+
+.numbers__label {
+  margin-block-start: 0.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+.numbers__value {
+  font-family: var(--font-family-pop);
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3.5rem);
+  line-height: 1.2;
+  color: var(--color-main-dark);
+  white-space: nowrap;
+}
+
+.numbers__value small {
+  margin-inline: 0.125rem;
+  font-size: 0.4em;
+}
+
+.numbers__bus {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-block-start: var(--space-lg);
+  padding: var(--space-md);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+}
+
+.numbers__bus-icon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 2rem;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: 50%;
+}
+
+.numbers__bus-title {
+  font-family: var(--font-family-pop);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  color: var(--color-main-dark);
+}
+
+.numbers__bus-text {
+  font-size: var(--font-size-sm);
+}
+
+.numbers__bus .more {
+  grid-column: 1 / -1;
+}
+
+@media (width >= 960px) {
+  .numbers__list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .numbers__item {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .numbers__icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    font-size: 2.125rem;
+  }
+
+  .numbers__label {
+    font-size: var(--font-size-sm);
+  }
+
+  .numbers__bus {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .numbers__bus .more {
+    grid-column: auto;
+  }
+}
+
+/* ==========================================================
+   特別講師：箱をやめて、大きな丸いアイコンのバッジに
+========================================================== */
+.lessons__list .lesson {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  justify-content: flex-start;
+}
+
+.lessons__list .lesson:hover {
+  transform: translateY(-0.375rem);
+}
+
+.lessons__list .lesson__icon {
+  width: 5.5rem;
+  height: 5.5rem;
+  font-size: 2.75rem;
+  color: var(--color-main);
+  background-color: var(--color-white);
+  border: 0;
+  box-shadow: 0 0.375rem 0 var(--color-main-light), 0 0 0 0.375rem var(--color-white), 0 0 0 0.5rem var(--color-main-light);
+}
+
+.lessons__list .lesson:hover .lesson__icon {
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+.lessons__list .lesson__name {
+  margin-block-start: 1rem;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.lessons__list {
+  row-gap: var(--space-lg);
+}
+
+@media (width >= 960px) {
+  .lessons__list .lesson__icon {
+    width: 6.5rem;
+    height: 6.5rem;
+    font-size: 3.25rem;
+  }
+}

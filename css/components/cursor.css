@@ -1,0 +1,101 @@
+@charset "UTF-8";
+/* ==========================================================
+   カーソル
+   マウス操作の端末だけ。ふだんは緑の小さな点＋ふわっと追いかける輪。
+   リンクの上では輪が大きくふくらみ、電話・見学・資料請求の上ではオレンジに。
+   タッチ端末・動きを減らす設定では何も出さない（JSが .has-cursor を付けない）。
+========================================================== */
+.cursor {
+  display: none;
+}
+
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+
+/* 地図（iframe）の中はブラウザ標準のカーソルに戻る */
+.has-cursor iframe {
+  cursor: auto !important;
+}
+
+.has-cursor .cursor {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 1000;
+  display: block;
+  pointer-events: none;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  inset: 0 auto auto 0;
+  border-radius: 50%;
+  translate: var(--x, -100px) var(--y, -100px);
+}
+
+/* 本体：マウス位置ぴったりの点 */
+.cursor__dot {
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  margin: -0.3125rem 0 0 -0.3125rem;
+  background-color: var(--color-main);
+  box-shadow: 0 0 0 2px var(--color-white);
+  transition: scale 0.2s var(--ease), background-color 0.2s;
+}
+
+/* 追いかける輪 */
+.cursor__ring {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  border: 2px solid var(--color-main);
+  background-color: rgba(124, 180, 57, 0.08);
+  transition:
+    scale 0.35s var(--ease),
+    border-color 0.25s,
+    background-color 0.25s,
+    opacity 0.25s;
+}
+
+/* リンク・ボタンの上：輪がぷくっとふくらむ */
+.cursor.is-link .cursor__ring {
+  scale: 1.6;
+  border-color: transparent;
+  background-color: rgba(124, 180, 57, 0.22);
+}
+
+.cursor.is-link .cursor__dot {
+  scale: 0.6;
+}
+
+/* 電話・見学・資料請求の上：オレンジ */
+/* オレンジのボタンの上でも見えるように、ふちは濃いオレンジ＋白い点 */
+.cursor.is-accent .cursor__ring {
+  scale: 1.8;
+  border-color: var(--color-accent-dark);
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+.cursor.is-accent .cursor__dot {
+  scale: 0.8;
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-accent-dark);
+}
+
+/* クリックした瞬間：きゅっと縮む */
+.cursor.is-down .cursor__ring {
+  scale: 0.8;
+}
+
+.cursor.is-link.is-down .cursor__ring,
+.cursor.is-accent.is-down .cursor__ring {
+  scale: 1.3;
+}
+
+/* 画面の外に出たら消す */
+.cursor.is-hidden .cursor__dot,
+.cursor.is-hidden .cursor__ring {
+  opacity: 0;
+}

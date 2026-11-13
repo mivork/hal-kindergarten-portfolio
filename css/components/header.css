@@ -1,0 +1,374 @@
+/* ==========================================================
+   Header
+   ロゴのうしろには色を敷かず、生成りの地にそのまま置く
+   右側には「電話」と「資料請求」をいつも見える場所に
+========================================================== */
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 100;
+  background-color: rgba(255, 252, 245, 0.82);
+  border-block-end: 1px solid var(--color-line);
+  /* WD27_06 リキッドグラス：うしろの写真がすりガラス越しに見える */
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+
+/* --- 上の細い帯（PCのみ） --- */
+.header__util {
+  display: none;
+}
+
+/* --- ロゴ・メニューの段 --- */
+.header__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: min(100% - 2.5rem, var(--layout-container));
+  height: var(--header-height);
+  margin-inline: auto;
+}
+
+.header__logo {
+  position: relative;
+  z-index: 2; /* メニューを開いてもロゴが見えるように */
+  flex-shrink: 0;
+}
+
+.header__logo img {
+  width: 9.5rem;
+}
+
+.header__contact {
+  display: none;
+}
+
+/* --- ハンバーガー（チェックボックスで開閉） --- */
+.header__toggle-check {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header__toggle {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: 50%;
+  box-shadow: 0 0.25rem 0 var(--color-main-dark);
+  cursor: pointer;
+}
+
+.header__toggle .material-symbols-rounded {
+  margin-block-start: -0.375rem;
+  font-size: 1.625rem;
+}
+
+.header__toggle-close {
+  display: none;
+}
+
+.header__toggle-text {
+  position: absolute;
+  inset-block-end: 0.375rem;
+  font-family: var(--font-family-pop);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+}
+
+.header__toggle-check:checked ~ .header__toggle .header__toggle-open {
+  display: none;
+}
+
+.header__toggle-check:checked ~ .header__toggle .header__toggle-close {
+  display: block;
+}
+
+.header__toggle-check:focus-visible ~ .header__toggle {
+  outline: 3px solid var(--color-main-dark);
+  outline-offset: 2px;
+}
+
+/* --- メニュー（SP：全画面で開く） --- */
+.nav {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow-y: auto;
+  padding: calc(var(--header-height) + var(--space-md)) 1.25rem 7rem;
+  background-color: var(--color-base);
+  background-image: radial-gradient(var(--color-main-light) 3px, transparent 3.5px);
+  background-size: 1.75rem 1.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.header__toggle-check:checked ~ .nav {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.625rem;
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 0.875rem 0.75rem;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.4;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.nav__link::before {
+  flex-shrink: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  content: "";
+  background-color: var(--color-main);
+  border-radius: 50%;
+}
+
+.nav__sub-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-block-start: var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+.nav__sub-list a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 0.25em;
+}
+
+.nav__tel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-block-start: var(--space-md);
+  padding: 0.75rem;
+  font-family: var(--font-family-pop);
+  font-size: 1.375rem;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0.25rem 0 var(--color-accent-dark);
+}
+
+/* ==========================================================
+   Tablet（600px〜）
+========================================================== */
+@media (width >= 600px) {
+  .header__logo img {
+    width: 11rem;
+  }
+
+  .header__contact {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-inline-start: auto;
+  }
+
+  .header__tel {
+    display: none;
+  }
+
+  .header__cta {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+    white-space: nowrap;
+    background-color: var(--color-accent);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0.25rem 0 var(--color-accent-dark);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .header__cta:hover {
+    transform: translateY(0.125rem);
+    box-shadow: 0 0.125rem 0 var(--color-accent-dark);
+  }
+
+  .header__cta .material-symbols-rounded {
+    font-size: 1.25rem;
+  }
+
+  .header__toggle {
+    order: 3;
+  }
+
+  .nav__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================
+   PC（960px〜）：1段目にロゴと電話・資料請求、2段目にメニュー
+========================================================== */
+@media (width >= 960px) {
+  .header {
+    inset-block-start: -2.25rem; /* 上の帯だけスクロールで隠れる */
+  }
+
+  .header__util {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-white);
+    background-color: var(--color-main);
+  }
+
+  .header__util-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(100% - 2.5rem, var(--layout-container));
+    height: 2.25rem;
+    margin-inline: auto;
+  }
+
+  .header__notice {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 700;
+  }
+
+  .header__notice .material-symbols-rounded {
+    font-size: 1.125rem;
+  }
+
+  .header__sub-list {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .header__sub-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .header__main {
+    flex-wrap: wrap;
+    row-gap: 0;
+    height: auto;
+    padding-block: 0.875rem 0;
+  }
+
+  .header__logo img {
+    width: 14rem;
+  }
+
+  .header__toggle {
+    display: none;
+  }
+
+  .header__tel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.25;
+    color: var(--color-accent-dark);
+  }
+
+  .header__tel-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--color-text-sub);
+  }
+
+  .header__tel-number {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-family: var(--font-family-pop);
+    font-size: 1.5rem;
+  }
+
+  .header__tel-number .material-symbols-rounded {
+    font-size: 1.5rem;
+  }
+
+  .header__cta {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav {
+    position: static;
+    order: 3;
+    width: 100%;
+    overflow: visible;
+    padding: 0;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav__list {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 0.25rem;
+  }
+
+  .nav__link {
+    flex-direction: row;
+    gap: 0.375rem;
+    padding: 0.625rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    border-radius: 0;
+    transition: color 0.3s ease;
+  }
+
+  .nav__link::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .nav__link:hover {
+    color: var(--color-main-dark);
+  }
+
+  .nav__link:hover::before {
+    transform: scale(1.5);
+  }
+
+  .nav__sub-list,
+  .nav__tel {
+    display: none;
+  }
+}
+
+@media (960px <= width < 1200px) {
+  .nav__link {
+    gap: 0.25rem;
+    padding-inline: 0.125rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+}

@@ -1,0 +1,205 @@
+/* ==========================================================
+   Base
+========================================================== */
+html {
+  font-size: 100%;
+  font-feature-settings: "palt";
+  scroll-behavior: smooth;
+  scroll-padding-block-start: var(--header-height);
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  background-color: var(--color-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* 1文字だけ次の行に落ちる「泣き別れ」を防ぐ */
+h1, h2, h3, figcaption {
+  text-wrap: balance;
+}
+
+p, dd {
+  text-wrap: pretty;
+}
+
+/* アイコン（Material Symbols Rounded）の共通設定 */
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+  -webkit-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  user-select: none;
+}
+
+/* ==========================================================
+   Layout
+========================================================== */
+.container {
+  width: min(100% - 2.5rem, var(--layout-container));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--space-2xl);
+}
+
+/* うすい緑のセクション：上下のふちを「スカラップ（波の丸み）」に */
+.section--tint {
+  margin-block: 1rem;
+  background-color: var(--color-main-pale);
+}
+
+.section--tint::before,
+.section--tint::after {
+  position: absolute;
+  inset-inline: 0;
+  height: 1rem;
+  content: "";
+  background-image: radial-gradient(circle at 1rem 1rem, var(--color-main-pale) 0.95rem, transparent 1rem);
+  background-size: 2rem 1rem;
+  background-repeat: repeat-x;
+}
+
+.section--tint::before {
+  inset-block-start: -0.98rem;
+}
+
+.section--tint::after {
+  inset-block-end: -0.98rem;
+  transform: scaleY(-1);
+}
+
+@media (width >= 960px) {
+  .section {
+    padding-block: var(--space-3xl);
+  }
+}
+
+/* ==========================================================
+   Utility
+========================================================== */
+.u-center {
+  margin-block-start: var(--space-xl);
+  text-align: center;
+}
+
+.u-pc {
+  display: none;
+}
+
+.u-marker {
+  background: linear-gradient(transparent 62%, var(--color-main-light) 62%);
+}
+
+@media (width >= 960px) {
+  .u-pc {
+    display: inline;
+  }
+
+  .u-sp {
+    display: none;
+  }
+}
+
+/* スクロールでふわっと表示（JSで .is-show を付ける） */
+.js-fade {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js-fade.is-show {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js-fade {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Vue が読み込まれるまで {{ }} を見せない */
+[v-cloak] {
+  display: none;
+}
+
+/* ==========================================================
+   スクロールに合わせて写真がふわっと広がる（WD27_03 の animation-timeline: view()）
+   対応していないブラウザでは何もしない（写真はそのまま見える）
+========================================================== */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .building__photo img,
+    .si__photo img,
+    .about__photo img,
+    .lessons__photo img,
+    .card__photo img {
+      animation: photo-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+}
+
+@keyframes photo-reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(10% round 1rem);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 round 0);
+  }
+}
+
+/* 写真の保存よけ（右クリック・キー操作は js/script.js の initGuard） */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none; /* iPhoneの長押しメニューを出さない */
+  user-select: none;
+}
+
+/* 印刷しても中身が出ないようにする */
+@media print {
+  body {
+    display: none;
+  }
+}
